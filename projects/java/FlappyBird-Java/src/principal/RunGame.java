@@ -2,7 +2,7 @@ package principal;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
-public class ThreadRunGame extends Thread{
+public class RunGame extends Thread{
     private final Settings settings;
     private final Background background;
     private final Ground ground;
@@ -12,7 +12,7 @@ public class ThreadRunGame extends Thread{
     private final Bird bird;
     private Graphics paintAarea;
     
-    public ThreadRunGame(Settings config, Background back, Ground base, Screen tela, UpdateScreen up, WaitScreen pause, Bird passaro){
+    public RunGame(Settings config, Background back, Ground base, Screen tela, UpdateScreen up, WaitScreen pause, Bird passaro){
         settings = config;
         background = back;
         ground = base;

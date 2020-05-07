@@ -23,18 +23,18 @@ public class Bird {
     
     public void run(Graphics g){
         if(settings.preStart){
-            drawBird(g);
-            updateImage(); 
+            fly(g);
+            updateWings(); 
         }else if(settings.start){
-            drawBird(g);
+            fly(g);
             updateBirdHeight();
-            updateImage();
+            updateWings();
         }else{
-            drawBird(g);
+            fly(g);
         } 
     }
     
-    private void updateImage(){
+    private void updateWings(){
         numberImage++;
         if(numberImage == 3) numberImage = 0;
     }
@@ -50,7 +50,7 @@ public class Bird {
         }
     }
     
-    private void drawBird(Graphics g){
+    private void fly(Graphics g){
         g.drawImage(birdImage[numberImage], bird_rect.x, bird_rect.y, bird_rect.width, bird_rect.height, settings.canvas);
     }
     

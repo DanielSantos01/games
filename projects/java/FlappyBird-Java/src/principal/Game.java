@@ -16,7 +16,7 @@ public class Game {
         UpdateScreen updateScreen = new UpdateScreen();
         
         //--------------------------------------------------------------------------------------------------------------------
-        ThreadRunGame runGame = new ThreadRunGame(settings, back, ground, screen, updateScreen, waitScreen, bird);
+        RunGame runGame = new RunGame(settings, back, ground, screen, updateScreen, waitScreen, bird);
         runGame.start();
         
     }
