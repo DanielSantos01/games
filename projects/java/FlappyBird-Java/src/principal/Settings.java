@@ -20,6 +20,7 @@ public class Settings {
     protected volatile boolean drawGame;
     protected volatile boolean drawBird;
     protected volatile boolean drawGround;
+    protected volatile boolean configurePipes;
     protected Canvas canvas;
     
     public Settings(){
@@ -35,6 +36,7 @@ public class Settings {
         
         //set flags
         preStart = true;
+        configurePipes = true;
         start = false;
         gameOver = false;
         drawBackground = true;

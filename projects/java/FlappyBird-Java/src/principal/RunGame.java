@@ -7,26 +7,26 @@ public class RunGame extends Thread{
     private final Background background;
     private final Ground ground;
     private final Screen screen;
-    private final UpdateScreen updateScreen;
     private final WaitScreen waitScreen;
     private final Bird bird;
-    private Graphics paintAarea;
+    private Graphics paintArea;
+    private final Pipe pipe;
     
-    public RunGame(Settings config, Background back, Ground base, Screen tela, UpdateScreen up, WaitScreen pause, Bird passaro){
+    public RunGame(Settings config, Background back, Ground base, Screen tela,
+            WaitScreen pause, Bird passaro, Pipe cano){
         settings = config;
         background = back;
         ground = base;
         screen = tela;
-        updateScreen = up;
         waitScreen = pause;
         bird = passaro;
+        pipe = cano;
     }
    
     //--------------------------------------------------------------------------------------------------------------------
     @Override
     public void run(){
         while(true){
-            settings.wait(15f);
             render();
         }
         
@@ -39,9 +39,23 @@ public class RunGame extends Thread{
             settings.canvas.createBufferStrategy(2);
             return;
         }
-        paintAarea = bs.getDrawGraphics();
-        updateScreen.update(screen, background, settings, paintAarea, waitScreen, bird, ground, MIN_PRIORITY);
-        paintAarea.dispose();
+        paintArea = bs.getDrawGraphics();
+        updateScreen(screen, background, settings, paintArea, waitScreen, bird, ground, MIN_PRIORITY);
+        paintArea.dispose();
         bs.show();
+    }
+    
+    private void updateScreen(Screen screen, Background back, Settings settings, Graphics paintArea, WaitScreen waitScreen, Bird bird,Ground ground, int frames){
+        settings.clock(30);
+        background.drawBackground(paintArea);
+        pipe.draw(paintArea);
+        if(settings.preStart || settings.gameOver) pauseScreen(paintArea, settings, bird, ground, waitScreen);
+        bird.run(paintArea);
+        ground.move(paintArea);
+    }
+    
+    //--------------------------------------------------------------------------------------------------------------------
+    private void pauseScreen(Graphics paintArea, Settings settings, Bird bird, Ground ground, WaitScreen waitScreen){
+        waitScreen.drawWaitScreen(paintArea);
     }
 }

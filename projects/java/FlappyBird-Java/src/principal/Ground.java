@@ -16,7 +16,7 @@ public class Ground {
     }
     
     //--------------------------------------------------------------------------------------------------------------------
-    public void update(Graphics g){
+    public void move(Graphics g){
         if(settings.preStart || settings.start){
             drawGround(g);
             updatePostion();

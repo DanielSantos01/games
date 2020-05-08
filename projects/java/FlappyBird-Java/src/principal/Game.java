@@ -13,10 +13,10 @@ public class Game {
         KeyEvents key = new KeyEvents(settings,bird);
         Screen screen = new Screen(settings, key);
         WaitScreen waitScreen = new WaitScreen(settings);
-        UpdateScreen updateScreen = new UpdateScreen();
+        Pipe pipe = new Pipe(settings);
         
         //--------------------------------------------------------------------------------------------------------------------
-        RunGame runGame = new RunGame(settings, back, ground, screen, updateScreen, waitScreen, bird);
+        RunGame runGame = new RunGame(settings, back, ground, screen, waitScreen, bird, pipe);
         runGame.start();
         
     }

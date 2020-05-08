@@ -9,8 +9,8 @@ public class Bird {
     protected final Image birdImage[] = new Image[3];
     private int numberImage = 0;
     protected Rectangle bird_rect;
-    private Settings settings;
-    private Ground ground;
+    private final Settings settings;
+    private final Ground ground;
     
     public Bird(Settings config, Ground chaozinho) throws IOException{
         settings = config;
@@ -47,6 +47,7 @@ public class Bird {
             settings.gameOver = true;
             settings.preStart = false;
             settings.start = false;
+            settings.configurePipes = true;
         }
     }
     
