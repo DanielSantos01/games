@@ -5,3 +5,4 @@ class Settings():
         self.height = 600
         self.screen_dimension = (self.width, self.height)
         self.bg_color = (0, 0, 0)
+        self.game_start = False

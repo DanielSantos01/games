@@ -10,10 +10,10 @@ def run():
     screen = pygame.display.set_mode(setting.screen_dimension)
     pygame.display.set_caption('BreakOut - Python')
     barra = Bar(screen)
-    ball = Ball(screen, barra)
+    ball = Ball(screen, barra, setting)
         
     while True:
-        function.check_events(barra)
+        function.check_events(barra, setting)
         function.update_screen(barra, screen, ball, setting)
 
 
