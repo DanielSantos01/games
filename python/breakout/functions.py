@@ -28,7 +28,8 @@ def check_keyup(event, barra):
         barra.flag_left = False
 
 
-def update_screen(barra, screen, setting):
+def update_screen(barra, screen, ball, setting):
     screen.fill(setting.bg_color)
     barra.draw()
+    ball.draw()
     pygame.display.flip()
