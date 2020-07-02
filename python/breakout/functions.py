@@ -38,12 +38,13 @@ def check_keyup(event, barra):
 def update_screen(barra, screen, ball, setting):
     screen.fill(setting.bg_color)
     barra.draw()
-    check_colision(barra, ball)
     ball.update()
     ball.draw()
+    check_colision(barra, ball)
     pygame.display.flip()
 
 
 def check_colision(barra, ball):
     if barra.rect.colliderect(ball.rect):
+        ball.direction(ball.rect.centerx)
         ball.down = False
