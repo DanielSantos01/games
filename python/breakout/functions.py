@@ -12,7 +12,6 @@ def check_events(barra, settings):
         elif event.type == pygame.KEYUP:
             check_keyup(event, barra)
 
-
 def check_keydown(event, barra, settings):
     if event.key == pygame.K_ESCAPE:
         sys.exit()
@@ -26,7 +25,6 @@ def check_keydown(event, barra, settings):
     elif event.key == pygame.K_SPACE:
         settings.game_start = True
 
-
 def check_keyup(event, barra):
     if event.key == pygame.K_RIGHT:
         barra.flag_right = False
@@ -34,15 +32,13 @@ def check_keyup(event, barra):
     elif event.key == pygame.K_LEFT:
         barra.flag_left = False
 
-
 def update_screen(barra, screen, ball, setting):
     screen.fill(setting.bg_color)
     barra.draw()
     ball.update()
-    ball.draw()
     check_colision(barra, ball)
+    ball.draw()
     pygame.display.flip()
-
 
 def check_colision(barra, ball):
     if barra.rect.colliderect(ball.rect):

@@ -1,10 +1,13 @@
 import pygame
 
 class Ball():
-    def __init__(self,screen, bar, setting):
+    def __init__(self, screen, bar, setting):
         self.settings = setting
         self.bar = bar
         self.screen = screen
+
+        #cor branca
+        self.color = (255, 255, 255)
 
         #especificações da bolinha
         self.radius = 15
@@ -18,52 +21,63 @@ class Ball():
         self.down = False
         self.left = False
         self.right = False
-        self.first = True
-
 
     def draw(self):
-        pygame.draw.circle(self.screen, (255, 255, 255), self.center, self.radius)
-
+        pygame.draw.circle(self.screen, self.color, self.center, self.radius)
 
     def update(self):
         #se o jogo estiver parado, o centro da bola é o centro da barra
         if not self.settings.game_start:
             self.follow_bar()
         else:
-            #quando o jogo começar, realiza a manutenção das flags de movimento (para cima e para baixo)
+            #quando o jogo começar, realiza a manutenção das flags de movimento
             self.set_flags()
-
-        self.move()
-
+            #chama o método responsável por incrementar/decrementar a posição
+            self.move()
 
     def set_flags(self):
+        #movimento vertical
         if (self.center[1] - self.radius) > 0 and not self.down:
-            self.up = True
+            self.go_up()
         else:
-            self.up = False
-            self.down = True
-            if (self.center[1] + self.radius) == self.screen.get_rect().height:
-                self.down = False
-                self.first = True
-                self.right = False
-                self.left = False
-                self.settings.game_start = False
+            self.go_down()
+            if (self.center[1] + self.radius) >= self.screen.get_rect().height:
+               self.initial_state()
 
-        if not self.first:
+        #movimento horizontal
+        if self.right or self.left:
             if (self.center[0] - self.radius) > 0 and not self.right:
-                self.left = True
-
+                self.go_left()
             else:
-                self.left = False
-                self.right = True
+                self.go_right()
                 if (self.center[0] + self.radius) >= self.screen.get_rect().width:
-                    self.right = False
+                    self.go_left()
 
+    def go_up(self):
+        self.up = True
+
+    def go_down(self):
+        self.up = False
+        self.down = True
+
+    def go_left(self):
+        self.right = False
+        self.left = True
+
+    def go_right(self):
+        self.left = False
+        self.right = True
+
+    def initial_state(self):
+        self.up = False
+        self.down = False
+        self.right = False
+        self.left = False
+        self.settings.game_start = False
 
     def follow_bar(self):
         self.center[0] = self.bar.rect.centerx
         self.center[1] = self.bar.rect.top - self.radius
-
 
     def move(self):
         if self.up:
@@ -80,19 +94,14 @@ class Ball():
 
         self.update_rect()
 
-
     def update_rect(self):
         self.rect.centerx = self.center[0]
         self.rect.centery = self.center[1]
 
-
     def direction(self, centerx):
-         if self.first:
-             self.first = False
-         else:
-            if centerx > self.bar.rect.centerx:
-                self.right = True
-                self.left = False
-            else:
-                self.right = False
-                self.left = True
+        if centerx >= self.bar.rect.centerx + 40:
+            self.right = True
+            self.left = False
+        elif centerx <= self.bar.rect.centerx - 40:
+            self.right = False
+            self.left = True
