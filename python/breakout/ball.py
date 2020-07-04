@@ -16,6 +16,8 @@ class Ball():
         #forma o retângulo para a bolinha (necessário para detectar colisôes com a barra)
         self.rect = pygame.Rect(0, 0, 2*self.radius, 2*self.radius)
 
+        self.deflection = 0
+
         #flags de movimentação
         self.up = False
         self.down = False
@@ -55,6 +57,7 @@ class Ball():
 
     def go_up(self):
         self.up = True
+        self.down = False
 
     def go_down(self):
         self.up = False
@@ -87,10 +90,10 @@ class Ball():
             self.center[1] += 1
 
         if self.left:
-            self.center[0] -= 0.7
+            self.center[0] -= self.deflection
 
         if self.right:
-            self.center[0] += 0.7
+            self.center[0] += self.deflection
 
         self.update_rect()
 
@@ -99,9 +102,45 @@ class Ball():
         self.rect.centery = self.center[1]
 
     def direction(self, centerx):
-        if centerx >= self.bar.rect.centerx + 40:
+        #direita
+        if centerx > self.bar.rect.centerx + 25 and centerx <= self.bar.rect.centerx + 40:
+            self.deflection = 0.1
             self.right = True
             self.left = False
-        elif centerx <= self.bar.rect.centerx - 40:
+
+        elif centerx > self.bar.rect.centerx + 40 and centerx <= self.bar.rect.centerx + 60:
+            self.deflection = 0.2
+            self.right = True
+            self.left = False
+
+        elif centerx > self.bar.rect.centerx + 60 and centerx <= self.bar.rect.centerx + 85:
+            self.deflection = 0.3
+            self.right = True
+            self.left = False
+
+        elif centerx > self.bar.rect.centerx + 85:
+            self.deflection = 0.5
+            self.right = True
+            self.left = False
+
+        #esquerda
+        elif centerx < self.bar.rect.centerx - 25 and centerx >= self.bar.rect.centerx - 40:
+            self.deflection = 0.1
             self.right = False
             self.left = True
+
+        elif centerx < self.bar.rect.centerx - 40 and centerx >= self.bar.rect.centerx - 60:
+            self.deflection = 0.2
+            self.right = False
+            self.left = True
+
+        elif centerx < self.bar.rect.centerx - 60 and centerx >= self.bar.rect.centerx - 85:
+            self.deflection = 0.3
+            self.right = False
+            self.left = True
+
+        elif centerx < self.bar.rect.centerx - 85:
+            self.deflection = 0.5
+            self.right = False
+            self.left = True
+
