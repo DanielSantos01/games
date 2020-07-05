@@ -1,6 +1,7 @@
 import pygame
 
-class Ball():
+
+class Ball:
     def __init__(self, screen, bar, settings, chances, score):
         self.settings = settings
         self.bar = bar
@@ -8,19 +9,19 @@ class Ball():
         self.chances = chances
         self.score = score
 
-        #cor branca
+        # white color
         self.color = (255, 255, 255)
 
-        #especificações da bolinha
+        # ball specify
         self.radius = 15
         self.center = [self.bar.rect.centerx, self.bar.rect.top - self.radius]
 
-        #forma o retângulo para a bolinha (necessário para detectar colisôes com a barra)
+        # create a rectangle to the ball (necessary to detect collisions)
         self.rect = pygame.Rect(0, 0, 2*self.radius, 2*self.radius)
 
         self.deflection = 0
 
-        #flags de movimentação
+        # movement flags
         self.up = False
         self.down = False
         self.left = False
@@ -37,7 +38,7 @@ class Ball():
             self.move()
 
     def set_flags(self):
-        #movimento vertical
+        # vertical movement
         if (self.center[1] - self.radius) > 0 and not self.down:
             self.go_up()
         else:
@@ -46,7 +47,7 @@ class Ball():
                 self.reset('fail')
                 self.center_bar()
 
-        #movimento horizontal
+        # horizontal movement
         if self.right or self.left:
             if (self.center[0] - self.radius) > 0 and not self.right:
                 self.go_left()
@@ -116,18 +117,18 @@ class Ball():
         self.rect.centery = self.center[1]
 
     def direction(self, centerx):
-        #direita
-        if centerx > self.bar.rect.centerx + 25 and centerx <= self.bar.rect.centerx + 40:
+        # right
+        if self.bar.rect.centerx + 25 < centerx <= self.bar.rect.centerx + 40:
             self.deflection = 0.1
             self.right = True
             self.left = False
 
-        elif centerx > self.bar.rect.centerx + 40 and centerx <= self.bar.rect.centerx + 60:
+        elif self.bar.rect.centerx + 40 < centerx <= self.bar.rect.centerx + 60:
             self.deflection = 0.2
             self.right = True
             self.left = False
 
-        elif centerx > self.bar.rect.centerx + 60 and centerx <= self.bar.rect.centerx + 85:
+        elif self.bar.rect.centerx + 60 < centerx <= self.bar.rect.centerx + 85:
             self.deflection = 0.3
             self.right = True
             self.left = False
@@ -137,18 +138,18 @@ class Ball():
             self.right = True
             self.left = False
 
-        #esquerda
-        elif centerx < self.bar.rect.centerx - 25 and centerx >= self.bar.rect.centerx - 40:
+        # left
+        elif self.bar.rect.centerx - 25 > centerx >= self.bar.rect.centerx - 40:
             self.deflection = 0.1
             self.right = False
             self.left = True
 
-        elif centerx < self.bar.rect.centerx - 40 and centerx >= self.bar.rect.centerx - 60:
+        elif self.bar.rect.centerx - 40 > centerx >= self.bar.rect.centerx - 60:
             self.deflection = 0.2
             self.right = False
             self.left = True
 
-        elif centerx < self.bar.rect.centerx - 60 and centerx >= self.bar.rect.centerx - 85:
+        elif self.bar.rect.centerx - 60 > centerx >= self.bar.rect.centerx - 85:
             self.deflection = 0.3
             self.right = False
             self.left = True

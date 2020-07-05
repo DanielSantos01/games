@@ -1,6 +1,7 @@
 import pygame.sysfont
 
-class Score():
+
+class Score:
     def __init__(self, screen, settings):
         self.screen = screen
         self.screen_rect = screen.get_rect()
@@ -14,8 +15,12 @@ class Score():
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.centerx = self.screen.get_rect().width - 160
 
+        self.msg_image = ''
+        self.msg_image_rect = 0
+
         self.level = 1
         self.value = 0
+
         with open('score/high_score.txt', 'r') as high:
             self.high_score = int(high.readline())
 
@@ -26,8 +31,11 @@ class Score():
         self.msg_image_rect.centerx = self.rect.centerx
 
     def show(self):
-        self.screen.fill(self.button_color, self.rect)#desenha o retângulo do botão
-        self.screen.blit(self.msg_image, self.msg_image_rect)#desenha a imagem do texto no botão
+        # draw the rect
+        self.screen.fill(self.button_color, self.rect)
+
+        # draw the text image inside the rect
+        self.screen.blit(self.msg_image, self.msg_image_rect)
 
     def update(self):
         self.value += self.level*10

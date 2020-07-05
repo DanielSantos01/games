@@ -1,6 +1,7 @@
 import pygame.sysfont
 
-class Chances():
+
+class Chances:
     def __init__(self, screen, settings):
         self.screen = screen
         self.screen_rect = screen.get_rect()
@@ -13,6 +14,9 @@ class Chances():
 
         self.rect = pygame.Rect(0, 0, self.width, self.height)
 
+        self.msg_image = ''
+        self.msg_image_rect = 0
+
         self.left = 3
         self.prep_chances(self.left)
 
@@ -22,8 +26,11 @@ class Chances():
         self.msg_image_rect = self.msg_image.get_rect()
 
     def show(self):
-        self.screen.fill(self.button_color, self.rect)#desenha o retângulo do botão
-        self.screen.blit(self.msg_image, self.msg_image_rect)#desenha a imagem do texto no botão
+        # draw the rect of the button
+        self.screen.fill(self.button_color, self.rect)
+
+        # dar the image text on the button
+        self.screen.blit(self.msg_image, self.msg_image_rect)
 
     def check_chances(self):
         return self.left > 0

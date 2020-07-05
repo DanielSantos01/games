@@ -1,5 +1,4 @@
 import pygame
-from pygame.sprite import Group
 import functions as function
 from settings import Settings
 from bar import Bar
@@ -8,31 +7,31 @@ from button import Button
 from chances import Chances
 from score import Score
 
+
 def run():
-    #inicia o pygame
     pygame.init()
 
-    #carrega as configurações
+    # load the game settings
     settings = Settings()
 
-    #cria a tela de exibição e adiciona uma legenda
+    # create the screen and add a title
     screen = pygame.display.set_mode(settings.screen_dimension)
     pygame.display.set_caption('BreakOut - Python')
 
-    #cria os elementos do game
-    barra = Bar(screen, settings)
+    # create the game elements
+    bar = Bar(screen, settings)
     chances = Chances(screen, settings)
     score = Score(screen, settings)
-    ball = Ball(screen, barra, settings, chances, score)
+    ball = Ball(screen, bar, settings, chances, score)
     btn_start = Button(screen, 'press space to start')
     btn_game_over = Button(screen, 'Game Over')
 
-    #cria o grupo que compôe o 'muro'
-    object_group = Group()
+    object_group = []
     function.dispose_objects(screen, object_group, score)
 
     while True:
-        function.check_events(barra, settings, chances, score)
-        function.update_screen(barra, screen, ball, settings, object_group, btn_start, btn_game_over, chances, score)
+        function.check_events(bar, settings, chances, score)
+        function.update_screen(bar, screen, ball, settings, object_group, btn_start, btn_game_over, chances, score)
+
 
 run()
