@@ -33,13 +33,15 @@ def check_keyup(event, barra):
     elif event.key == pygame.K_LEFT:
         barra.flag_left = False
 
-def update_screen(barra, screen, ball, setting, objects):
+def update_screen(barra, screen, ball, setting, objects, btn):
     screen.fill(setting.bg_color)
     barra.draw()
     ball.update()
     check_colision(barra, ball, objects)
     objects.draw(screen)
     ball.draw()
+    if not setting.game_start:
+        btn.draw_button()
     pygame.display.flip()
 
 def check_colision(barra, ball, objects):
