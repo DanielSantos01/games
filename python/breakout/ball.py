@@ -1,10 +1,11 @@
 import pygame
 
 class Ball():
-    def __init__(self, screen, bar, setting):
+    def __init__(self, screen, bar, setting, score):
         self.settings = setting
         self.bar = bar
         self.screen = screen
+        self.score = score
 
         #cor branca
         self.color = (255, 255, 255)
@@ -44,7 +45,8 @@ class Ball():
         else:
             self.go_down()
             if (self.center[1] + self.radius) >= self.screen.get_rect().height:
-               self.initial_state()
+                self.initial_state()
+                self.bar.rect.centerx = self.screen.get_rect().centerx
 
         #movimento horizontal
         if self.right or self.left:
@@ -72,11 +74,21 @@ class Ball():
         self.right = True
 
     def initial_state(self):
+        self.settings.chances -= 1
+        self.what_to_do()
         self.up = False
         self.down = False
         self.right = False
         self.left = False
-        self.settings.game_start = False
+
+    def what_to_do(self):
+        if self.score.check_chances():
+            self.settings.pre_start = True
+            self.settings.game_start = False
+        else:
+            self.settings.pre_start = False
+            self.settings.game_start = False
+            self.settings.game_over = True
 
     def follow_bar(self):
         self.center[0] = self.bar.rect.centerx

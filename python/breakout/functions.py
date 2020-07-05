@@ -24,7 +24,15 @@ def check_keydown(event, barra, settings):
         barra.flag_left = True
 
     elif event.key == pygame.K_SPACE:
-        settings.game_start = True
+        #situação de fim de jogo
+        if not settings.pre_start and not settings.game_start:
+            settings.pre_start = True
+            settings.game_over = False
+            settings.chances = 3
+        #situação de espera pelo click do jogador
+        elif settings.pre_start:
+            settings.pre_start = False
+            settings.game_start = True
 
 def check_keyup(event, barra):
     if event.key == pygame.K_RIGHT:
@@ -33,15 +41,33 @@ def check_keyup(event, barra):
     elif event.key == pygame.K_LEFT:
         barra.flag_left = False
 
-def update_screen(barra, screen, ball, setting, objects, btn):
+def update_screen(barra, screen, ball, setting, objects, btn_start, btn_game_over, scr):
+    #preenche a tela
     screen.fill(setting.bg_color)
+
+    #desenha a barra e atualiza a posição da bola
     barra.draw()
     ball.update()
+
+    #analisa se ocorreu alguma colisão
     check_colision(barra, ball, objects)
+
+    #desenha o 'muro'
     objects.draw(screen)
+
+    #desenha a bola
     ball.draw()
-    if not setting.game_start:
-        btn.draw_button()
+
+    #checha sempre quantas chances restam para deixar atualizado
+    scr.prep_chances(setting.chances)
+    scr.draw()
+
+    #verifica qual botão desenhar
+    if setting.game_over:
+        btn_game_over.draw_button()
+    if setting.pre_start:
+        btn_start.draw_button()
+
     pygame.display.flip()
 
 def check_colision(barra, ball, objects):

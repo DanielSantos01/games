@@ -1,9 +1,10 @@
 import pygame
 class Bar():
 
-    def __init__(self, screen):
+    def __init__(self, screen, settings):
         self.screen = screen
         self.screen_rect = self.screen.get_rect()
+        self.settings = settings
 
         #bar dimensions
         self.width = 200
@@ -23,10 +24,10 @@ class Bar():
 
     #function who draws bar in the screen
     def draw(self):
-        if self.flag_left and self.rect.left >= 0:
+        if self.flag_left and self.rect.left >= 0 and not self.settings.game_over:
             self.rect.left -= 1
 
-        if self.flag_right and self.rect.right <= self.screen_rect.width:
+        if self.flag_right and self.rect.right <= self.screen_rect.width and not self.settings.game_over:
             self.rect.right += 1
 
         pygame.draw.rect(self.screen, self.color, self.rect)
