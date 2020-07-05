@@ -7,5 +7,5 @@ class Objects(Sprite):
         self.image = pygame.image.load('images/obj.png')
         self.rect = self.image.get_rect()
 
-    def draw(self):
+    def blitme(self):
         self.screen.blit(self.image, self.rect)
