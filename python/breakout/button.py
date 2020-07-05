@@ -20,7 +20,6 @@ class Button():
 
         #a mensagem do botão deve ser carregada apenas uma vez
         self.prep_msg(message)
-        print(message)
 
     def prep_msg(self, message):
         """tranforma a string em imagem renderizada e a centraliza no botão"""
