@@ -1,6 +1,6 @@
 import pygame
-class Bar():
 
+class Bar():
     def __init__(self, screen, settings):
         self.screen = screen
         self.screen_rect = self.screen.get_rect()
@@ -22,7 +22,6 @@ class Bar():
         self.flag_right = False;
         self.flag_left = False;
 
-    #function who draws bar in the screen
     def draw(self):
         if self.flag_left and self.rect.left >= 0 and not self.settings.game_over:
             self.rect.left -= 1

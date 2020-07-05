@@ -1,11 +1,11 @@
 import pygame
 
 class Ball():
-    def __init__(self, screen, bar, setting, score):
-        self.settings = setting
+    def __init__(self, screen, bar, settings, chances):
+        self.settings = settings
         self.bar = bar
         self.screen = screen
-        self.score = score
+        self.chances = chances
 
         #cor branca
         self.color = (255, 255, 255)
@@ -29,13 +29,10 @@ class Ball():
         pygame.draw.circle(self.screen, self.color, self.center, self.radius)
 
     def update(self):
-        #se o jogo estiver parado, o centro da bola é o centro da barra
         if not self.settings.game_start:
             self.follow_bar()
         else:
-            #quando o jogo começar, realiza a manutenção das flags de movimento
             self.set_flags()
-            #chama o método responsável por incrementar/decrementar a posição
             self.move()
 
     def set_flags(self):
@@ -45,7 +42,7 @@ class Ball():
         else:
             self.go_down()
             if (self.center[1] + self.radius) >= self.screen.get_rect().height:
-                self.initial_state()
+                self.fail()
                 self.bar.rect.centerx = self.screen.get_rect().centerx
 
         #movimento horizontal
@@ -73,16 +70,16 @@ class Ball():
         self.left = False
         self.right = True
 
-    def initial_state(self):
-        self.settings.chances -= 1
-        self.what_to_do()
+    def fail(self):
         self.up = False
         self.down = False
         self.right = False
         self.left = False
+        self.chances.left -= 1
+        self.what_to_do()
 
     def what_to_do(self):
-        if self.score.check_chances():
+        if self.chances.check_chances():
             self.settings.pre_start = True
             self.settings.game_start = False
         else:
@@ -155,4 +152,3 @@ class Ball():
             self.deflection = 0.5
             self.right = False
             self.left = True
-

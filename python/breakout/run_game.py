@@ -1,27 +1,36 @@
 import pygame
-import functions as function
 from pygame.sprite import Group
+import functions as function
 from settings import Settings
 from bar import Bar
 from ball import Ball
 from button import Button
-from score import Score
+from chances import Chances
 
 def run():
+    #inicia o pygame
     pygame.init()
-    setting = Settings()
-    screen = pygame.display.set_mode(setting.screen_dimension)
+
+    #carrega as configurações
+    settings = Settings()
+
+    #cria a tela de exibição e adiciona uma legenda
+    screen = pygame.display.set_mode(settings.screen_dimension)
     pygame.display.set_caption('BreakOut - Python')
-    barra = Bar(screen, setting)
-    scr = Score(screen, setting)
-    ball = Ball(screen, barra, setting, scr)
-    objs = Group()
+
+    #cria os elementos do game
+    barra = Bar(screen, settings)
+    chances = Chances(screen, settings)
+    ball = Ball(screen, barra, settings, chances)
     btn_start = Button(screen, 'press space to start')
     btn_game_over = Button(screen, 'Game Over')
-    function.dispose_objects(screen, objs)
+
+    #cria o grupo que compôe o 'muro'
+    object_group = Group()
+    function.dispose_objects(screen, object_group)
 
     while True:
-        function.check_events(barra, setting)
-        function.update_screen(barra, screen, ball, setting, objs, btn_start, btn_game_over, scr)
+        function.check_events(barra, settings, chances)
+        function.update_screen(barra, screen, ball, settings, object_group, btn_start, btn_game_over, chances)
 
 run()

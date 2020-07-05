@@ -8,4 +8,3 @@ class Settings():
         self.game_start = False
         self.game_over = False
         self.pre_start = True
-        self.chances = 3
