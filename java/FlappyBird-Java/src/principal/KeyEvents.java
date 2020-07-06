@@ -18,18 +18,20 @@ public class KeyEvents implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        if(settings.preStart || settings.start){
-            settings.preStart = false;
-            settings.start = true;
-            if(bird.bird_rect.y >= 10){
-                settings.fall = settings.birdUpValue;
+        if (ke.getKeyCode() == KeyEvent.VK_SPACE){
+            if(settings.preStart || settings.start){
+                settings.preStart = false;
+                settings.start = true;
+                if(bird.bird_rect.y >= 10){
+                    settings.fall = settings.birdUpValue;
+                }else{
+                    settings.fall = 0;
+                }
             }else{
-                settings.fall = 0;
+                bird.centerBird();
+                settings.preStart = true;
+                settings.gameOver = false;
             }
-        }else{
-            bird.centerBird();
-            settings.preStart = true;
-            settings.gameOver = false;
         }
     }
 
