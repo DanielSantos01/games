@@ -1,42 +1,40 @@
 package principal;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Ground {
-    protected Image ground;
-    private int x_position = 0;
+    protected Image groundImage;
+    private int x = 0;
     private final Settings settings;
     
-    public Ground(Background bg, Settings config) throws IOException{
-        settings = config;
-        ground = ImageIO.read(getClass().getResource("..//assets//base.png"));
-        ground = ground.getScaledInstance(2*(settings.canvas.getWidth() - 16), ground.getHeight(config.canvas), 0);
+    public Ground(Settings set) throws IOException{
+        settings = set;
+        groundImage = ImageIO.read(getClass().getResource("..//assets//base.png"));
+        groundImage = groundImage.getScaledInstance(2*(settings.screenWidth-16), groundImage.getHeight(settings.canvas), 0);
     }
     
     //--------------------------------------------------------------------------------------------------------------------
-    public void move(Graphics g){
-        if((settings.preStart || settings.start) && !(settings.touchPipe)){
-            drawGround(g);
-            updatePostion();
-        }
-        drawGround(g);
+    public void display(Graphics g){
+        if((settings.preStart || settings.start) && !(settings.touchPipe)) updatePostion();
+        draw(g);
     }
     
     //--------------------------------------------------------------------------------------------------------------------
     private void updatePostion(){
-        x_position -= 5;
+        x -= 5;
         checkOut();
     }
     
     //--------------------------------------------------------------------------------------------------------------------
-    private void drawGround(Graphics g){
-        g.drawImage(ground, x_position, 680 - ground.getHeight(settings.canvas), settings.canvas);
+    private void draw(Graphics g){
+        g.drawImage(groundImage, x, 680 - groundImage.getHeight(settings.canvas), settings.canvas);
     }
    
     //--------------------------------------------------------------------------------------------------------------------
     private void checkOut(){
-        if(x_position <= -384) x_position = 0;
+        if(x <= -366) x = 0;
     }
 }

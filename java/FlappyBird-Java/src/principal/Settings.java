@@ -8,7 +8,6 @@ public class Settings {
     protected final int screenHeight;
     protected final int birdUpValue;
     protected final int gravity;
-    protected final int frames;
     //variável
     protected int fall;
     //flags
@@ -28,14 +27,13 @@ public class Settings {
         //screen
         screenWidth = 400;
         screenHeight = 680;
-        frames = 30;
         
         //bird settings
         birdUpValue = -8;
         fall = 10;
         gravity = 1;
         
-        //set flags
+        //set initial flags
         preStart = true;
         configurePipes = true;
         start = false;
@@ -46,19 +44,13 @@ public class Settings {
         
         //canvas
         canvas = new Canvas();
-        canvas.setSize(400, 680);
+        canvas.setSize(screenWidth, screenHeight);
     }
     
     //--------------------------------------------------------------------------------------------------------------------
     public void clock(int frames){
         long agora = System.currentTimeMillis();
         while ((System.currentTimeMillis() - agora) <= (1000/frames)){}
-    }
-    
-    //--------------------------------------------------------------------------------------------------------------------
-    public void wait(float time){
-        long agora = System.currentTimeMillis();
-        while ((System.currentTimeMillis() - agora) < time){}
     }
     
 }
