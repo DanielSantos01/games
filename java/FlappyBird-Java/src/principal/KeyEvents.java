@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class KeyEvents implements KeyListener{
     private final Settings settings;
-    private Bird bird;
+    private final Bird bird;
     
     public KeyEvents(Settings config, Bird passarinho){
         settings = config;
@@ -19,7 +19,7 @@ public class KeyEvents implements KeyListener{
     @Override
     public void keyPressed(KeyEvent ke) {
         if (ke.getKeyCode() == KeyEvent.VK_SPACE){
-            if(settings.preStart || settings.start){
+            if((settings.preStart || settings.start) && !(settings.touchPipe)){
                 settings.preStart = false;
                 settings.start = true;
                 if(bird.bird_rect.y >= 10){
@@ -31,6 +31,7 @@ public class KeyEvents implements KeyListener{
                 bird.centerBird();
                 settings.preStart = true;
                 settings.gameOver = false;
+                if(settings.touchPipe) settings.touchPipe = false;
             }
         }
     }

@@ -17,7 +17,7 @@ public class Ground {
     
     //--------------------------------------------------------------------------------------------------------------------
     public void move(Graphics g){
-        if(settings.preStart || settings.start){
+        if((settings.preStart || settings.start) && !(settings.touchPipe)){
             drawGround(g);
             updatePostion();
         }

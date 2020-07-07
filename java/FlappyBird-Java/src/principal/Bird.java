@@ -11,6 +11,7 @@ public class Bird {
     protected Rectangle bird_rect;
     private final Settings settings;
     private final Ground ground;
+    Rectangle rect;
     
     public Bird(Settings config, Ground chaozinho) throws IOException{
         settings = config;
@@ -48,6 +49,7 @@ public class Bird {
             settings.preStart = false;
             settings.start = false;
             settings.configurePipes = true;
+            settings.touchPipe = false;
         }
     }
     
@@ -64,6 +66,7 @@ public class Bird {
     }
     
     protected void loose(){
-        
+        settings.touchPipe = true;
+        settings.gameOver = true;
     }
 }

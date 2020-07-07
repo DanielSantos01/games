@@ -13,7 +13,7 @@ public class Game {
         KeyEvents key = new KeyEvents(settings,bird);
         Screen screen = new Screen(settings, key);
         WaitScreen waitScreen = new WaitScreen(settings);
-        Pipe pipe = new Pipe(settings);
+        Pipe pipe = new Pipe(settings, bird);
         
         //--------------------------------------------------------------------------------------------------------------------
         RunGame runGame = new RunGame(settings, back, ground, screen, waitScreen, bird, pipe);

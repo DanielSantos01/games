@@ -21,6 +21,7 @@ public class Settings {
     protected volatile boolean drawBird;
     protected volatile boolean drawGround;
     protected volatile boolean configurePipes;
+    protected volatile boolean touchPipe;
     protected Canvas canvas;
     
     public Settings(){
@@ -41,6 +42,7 @@ public class Settings {
         gameOver = false;
         drawBackground = true;
         drawGame = false;
+        touchPipe = false;
         
         //canvas
         canvas = new Canvas();
