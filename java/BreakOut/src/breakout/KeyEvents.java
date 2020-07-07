@@ -27,22 +27,29 @@ public class KeyEvents implements KeyListener{
             case KeyEvent.VK_RIGHT:
                 
                 if(bar.x < settings.screenWidth - bar.width){
+                    
                     bar.x += moveConst;
-                    if(settings.preStart){
-                        ball.x += moveConst;
-                    }
+                    if(settings.preStart) ball.x += moveConst;
+                    
                 }
                 break;
                 
             case KeyEvent.VK_LEFT:
                 
                  if(bar.x > 0){
+                     
                     bar.x -= moveConst;
-                    if (settings.preStart){
-                        ball.x -= moveConst;
-                    }
+                    if (settings.preStart) ball.x -= moveConst;
+                    
                 }
                 break;
+                
+            case KeyEvent.VK_SPACE:
+                
+                if(settings.preStart){
+                    settings.preStart = false;
+                    settings.start = true;
+                }
         }
     }
 

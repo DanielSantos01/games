@@ -24,9 +24,15 @@ public class RunGame {
             return;
         }
         g = (Graphics2D) bs.getDrawGraphics();
+        
         screen.fillBackground(g);
+        
         bar.draw(g);
+        
+        ball.checkEdges();
         ball.draw(g);
+        ball.checkMove();
+        
         g.dispose();
         bs.show();
     }
