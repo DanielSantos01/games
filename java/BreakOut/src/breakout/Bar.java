@@ -12,6 +12,7 @@ public class Bar {
     protected final int startx;
     protected final int starty;
     protected int x;
+    protected int moveValue;
     
     //rectangle
     protected Rectangle rect;
@@ -23,6 +24,7 @@ public class Bar {
         startx = 400;
         starty = 546;
         x = startx;
+        moveValue = 5;
         rect = new Rectangle(x, starty, width, height);
     }
     
