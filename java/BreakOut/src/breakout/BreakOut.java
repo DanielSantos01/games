@@ -7,10 +7,11 @@ public class BreakOut {
     public static void main(String[] args) throws IOException {
         Settings settings = new Settings();
         Bar bar = new Bar(settings);
-        KeyEvents keyEvent = new KeyEvents(settings, bar);
+        Ball ball = new Ball(settings);
+        KeyEvents keyEvent = new KeyEvents(settings, bar, ball);
         Screen screen = new Screen(settings, keyEvent);
         Graphics2D g = (Graphics2D) settings.canvas.getGraphics();
-        RunGame run = new RunGame(bar, settings);
+        RunGame run = new RunGame(bar, settings, screen, ball);
         
         while(true){
             run.render();

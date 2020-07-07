@@ -8,9 +8,13 @@ public class RunGame {
     Bar bar;
     Settings settings;
     Graphics2D g;
-    public RunGame(Bar ba, Settings set){
+    Screen screen;
+    Ball ball;
+    public RunGame(Bar ba, Settings set, Screen scr, Ball bal){
         bar = ba;
         settings = set;
+        screen = scr;
+        ball = bal;
     }
     
     public void render(){
@@ -20,7 +24,9 @@ public class RunGame {
             return;
         }
         g = (Graphics2D) bs.getDrawGraphics();
+        screen.fillBackground(g);
         bar.draw(g);
+        ball.draw(g);
         g.dispose();
         bs.show();
     }

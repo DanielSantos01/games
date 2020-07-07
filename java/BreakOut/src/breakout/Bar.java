@@ -20,8 +20,6 @@ public class Bar {
     }
     
     public void draw(Graphics2D g){
-        g.setColor(Color.black);
-        g.fillRect(0, 0, settings.screenWidth, settings.screenHeight);
         g.setColor(Color.white);
         g.fillRect(x, starty, width, height);
     }

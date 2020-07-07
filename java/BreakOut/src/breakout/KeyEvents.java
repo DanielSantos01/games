@@ -6,10 +6,13 @@ import java.awt.event.KeyListener;
 public class KeyEvents implements KeyListener{
     private final Settings settings;
     private final Bar bar;
-    
-    public KeyEvents(Settings config, Bar ba){
+    private final Ball ball;
+    private final int moveConst;
+    public KeyEvents(Settings config, Bar ba, Ball bal){
         settings = config;
         bar = ba;
+        ball = bal;
+        moveConst = 5;
     }
 
     @Override
@@ -18,15 +21,26 @@ public class KeyEvents implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent ke) {
+        
         switch(ke.getKeyCode()){
+            
             case KeyEvent.VK_RIGHT:
-                if(bar.x <= settings.screenWidth - bar.width){
-                    bar.x += 4;
+                
+                if(bar.x < settings.screenWidth - bar.width){
+                    bar.x += moveConst;
+                    if(settings.preStart){
+                        ball.x += moveConst;
+                    }
                 }
                 break;
+                
             case KeyEvent.VK_LEFT:
+                
                  if(bar.x > 0){
-                    bar.x -= 4;
+                    bar.x -= moveConst;
+                    if (settings.preStart){
+                        ball.x -= moveConst;
+                    }
                 }
                 break;
         }
