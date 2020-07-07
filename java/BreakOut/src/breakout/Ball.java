@@ -1,43 +1,49 @@
 package breakout;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 public class Ball {
     Settings settings;
     
     //position
-    protected final int initialx;
-    protected final int initialy;
+    protected final int startx;
+    protected final int starty;
     protected final int radius;
-    protected int centerx;
+    protected int moveValue;
     protected int x;
     protected int y;
-    protected int moveValue;
     
     //movement flags
     private boolean up;
     private boolean down;
     
-    public Ball(Settings set){
+    private final Rectangle rect;
+    private final Bar bar;
+    
+    public Ball(Settings set, Bar ba){
         settings = set;
+        bar = ba;
         
         //position
-        initialx = 480;
-        initialy = 496;
-        x = initialx;
-        y = initialy;
+        startx = 480;
+        starty = 496;
+        x = startx;
+        y = starty;
         radius = 25;
-        centerx = x + radius;
         moveValue = 6;
         
         //movement flags
         up = false;
         down = false;
+        
+        rect = new Rectangle(x, y, 2*radius, 2*radius);
     }
     
     public void draw(Graphics2D g){
+        rect.x = x;
+        rect.y = y;
         g.fillArc(x, y, 2*radius, 2*radius, 0, 360);
-        centerx = x + radius;
     }
     
     public void checkEdges(){
@@ -49,10 +55,10 @@ public class Ball {
             }else{
                 up = false;
                 down = true;
-                if ((y+2*radius) >= settings.screenHeight) down = false;   
+                if ((y+2*radius) >= settings.screenHeight) fail();
+                  
             }
         }
-        
     }
     
     public void checkMove(){
@@ -61,5 +67,21 @@ public class Ball {
         
         if(down) y += moveValue;
         
+    }
+    
+    public void checkCollisions(){
+        
+       if(rect.intersects(bar.rect) && settings.start) down = false;
+       
+    }
+    
+    public void fail(){
+        up = false;
+        down = false;
+        x = startx;
+        y = starty;
+        bar.x = bar.startx;
+        settings.preStart = true;
+        settings.start = false;
     }
 }

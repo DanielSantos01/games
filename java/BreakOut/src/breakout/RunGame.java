@@ -31,6 +31,7 @@ public class RunGame {
         
         ball.checkEdges();
         ball.draw(g);
+        ball.checkCollisions();
         ball.checkMove();
         
         g.dispose();

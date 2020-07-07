@@ -8,7 +8,7 @@ public class BreakOut {
         //game elements
         Settings settings = new Settings();
         Bar bar = new Bar(settings);
-        Ball ball = new Ball(settings);
+        Ball ball = new Ball(settings, bar);
         KeyEvents keyEvent = new KeyEvents(settings, bar, ball);
         Screen screen = new Screen(settings, keyEvent);
         Graphics2D g = (Graphics2D) settings.canvas.getGraphics();
