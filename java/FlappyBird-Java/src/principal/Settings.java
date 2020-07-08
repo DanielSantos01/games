@@ -8,19 +8,21 @@ public class Settings {
     protected final int screenHeight;
     protected final int birdUpValue;
     protected final int gravity;
+    
     //variável
     protected int fall;
+    
     //flags
     protected boolean preStart;
     protected boolean start;
     protected boolean gameOver;
     protected final int pipeUpHeight[] = {100, 50, 30, 150, 300, 70, 180, 200, 120, 60};
-    protected volatile boolean drawBackground;
-    protected volatile boolean drawGame;
-    protected volatile boolean drawBird;
-    protected volatile boolean drawGround;
-    protected volatile boolean configurePipes;
-    protected volatile boolean touchPipe;
+    protected boolean drawBackground;
+    protected boolean drawGame;
+    protected boolean drawBird;
+    protected boolean drawGround;
+    protected boolean configurePipes;
+    protected boolean touchPipe;
     protected Canvas canvas;
     
     public Settings(){
@@ -52,5 +54,4 @@ public class Settings {
         long agora = System.currentTimeMillis();
         while ((System.currentTimeMillis() - agora) <= (1000/frames)){}
     }
-    
 }
