@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.IOException;
 import javax.swing.JFrame;
+import javax.swing.JTextArea;
 
 public final class Screen extends JFrame{
     Settings settings;
+    
     public Screen(Settings set, KeyEvents ke) throws IOException{
         settings = set;
         add(set.canvas);
@@ -19,7 +21,7 @@ public final class Screen extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
-    public void fillBackground(Graphics2D g){
+    protected void fillBackground(Graphics2D g){
         g.setColor(Color.black);
         g.fillRect(0, 0, settings.screenWidth, settings.screenHeight);
     }

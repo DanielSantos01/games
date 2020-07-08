@@ -15,14 +15,11 @@ public class Bar {
     protected Rectangle rect;
     
     public Bar(Settings set){
-        rect = new Rectangle();
         startx = 400;
         starty = 546;
-        rect.x = startx;
-        rect.y = starty;
-        rect.width = 200;
-        rect.height = 30;
-        moveValue = 8;
+        moveValue = 20;
+        settings = set;
+        rect = new Rectangle(startx, starty, 200, 30);
     }
     
     protected void draw(Graphics2D g){
@@ -32,6 +29,7 @@ public class Bar {
     
     protected void reset(){
         rect.x = startx;
+        if(settings.gameOver) moveValue = 20;
     }
     
 }

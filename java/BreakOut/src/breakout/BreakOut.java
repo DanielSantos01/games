@@ -1,5 +1,4 @@
 package breakout;
-import java.awt.Graphics2D;
 import java.io.IOException;
 
 public class BreakOut {
@@ -12,13 +11,13 @@ public class BreakOut {
         Ball ball = new Ball(settings, bar, score);
         KeyEvents keyEvent = new KeyEvents(settings, bar, ball, score);
         Screen screen = new Screen(settings, keyEvent);
-        Graphics2D g = (Graphics2D) settings.canvas.getGraphics();
-        RunGame breakOut = new RunGame(bar, settings, screen, ball, score);
+        Button btn = new Button(settings);
+        RunGame breakOut = new RunGame(bar, settings, screen, ball, score, btn);
         
         //running...
         while(true){
             breakOut.render();
-            settings.clock(30);
+            settings.clock(100);
         }
     }
     

@@ -31,15 +31,13 @@ public final class Ball {
         score = scor;
         
         //position
-        startx = 480;
-        starty = 506;
-        radius = 20;
-        verticalValue = 8;
+        startx = 485;
+        starty = 516;
+        radius = 15;
+        verticalValue = 4;
         
-        //movement flags
         resetFlags();
         
-        //ball rect
         rect = new Rectangle(startx, starty, 2*radius, 2*radius);
     }
     
@@ -76,11 +74,9 @@ public final class Ball {
     
     private void move(){
         if(up) rect.y -= verticalValue;
-        
         else if(down) rect.y += verticalValue;
         
         if(right) rect.x += horizontalValue;
-        
         else if(left) rect.x -= horizontalValue;
     }
     
@@ -88,26 +84,27 @@ public final class Ball {
         rect.x = startx;
         rect.y = starty;
         resetFlags();
-        bar.reset();
         
         switch(cause){
             case "fail":
-                score.chancesLeft--;
-                if(score.chancesLeft == 0) {
+                score.left--;
+                if(score.left == 0) {
                     settings.preStart = false;
                     settings.gameOver = true;
-                    verticalValue = 8;
+                    verticalValue = 4;
                 }
                 break;
                 
             case "new level":
                 verticalValue += 1;
+                bar.moveValue += 1;
                 break;
             
             default:
                 break;
         }
         
+        bar.reset();
     }
     
     protected void resetFlags(){
@@ -122,18 +119,19 @@ public final class Ball {
     
     protected void changeDirection(){
         if(down) goUp();
-        else if(up) goDown();
+        else goDown();
     }
     
     protected void touchBar(int centerBar){
       if(center > centerBar){
-          if(center < (centerBar+40)) horizontalValue = 1;
+          if(center < (centerBar+60)) horizontalValue = 1;
           else if(center < (centerBar+75)) horizontalValue = 2;
           else if(center < (centerBar+100)) horizontalValue = 3;
           allow = true;
           goRight();
+          
       }else if (center < centerBar){
-          if(center > (centerBar-40)) horizontalValue = 1;
+          if(center > (centerBar-60)) horizontalValue = 1;
           else if(center > (centerBar-75)) horizontalValue = 2;
           else if(center > (centerBar-100)) horizontalValue = 3;
           allow = true;
@@ -142,6 +140,7 @@ public final class Ball {
       goUp();
     }
     
+    //movement flags
     private void goUp(){
         up = true;
         down = false;

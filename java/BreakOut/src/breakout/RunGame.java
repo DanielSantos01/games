@@ -14,13 +14,15 @@ public class RunGame {
     private final ArrayList<Element> wall = new ArrayList();
     private int collide;
     private final Score score;
+    private final Button btn;
     
-    public RunGame(Bar ba, Settings set, Screen scr, Ball bal, Score scor){
+    public RunGame(Bar ba, Settings set, Screen scr, Ball bal, Score scor, Button bt){
         bar = ba;
         settings = set;
         screen = scr;
         ball = bal;
         score = scor;
+        btn = bt;
     }
     
     public void render() throws IOException{
@@ -44,11 +46,14 @@ public class RunGame {
         
         ball.execute(g);
         
+        if(settings.preStart || settings.gameOver) btn.draw(g);
         if(settings.buildWall) buildWall();
         if(settings.start) checkCollisions();
+        
         draWall();
         
         checkLevel();
+        score.draw(g);
     }
     
     private void buildWall() throws IOException{
@@ -77,6 +82,7 @@ public class RunGame {
            if(ball.rect.intersects(elm.rect)) {
                collide =  wall.indexOf(elm);
                ball.changeDirection();
+               score.value += score.level*10;
                settings.remove = true;
                break;
            }
@@ -107,7 +113,7 @@ public class RunGame {
             wall.clear();
             score.value = 0;
             score.level = 1;
-            score.chancesLeft = 3;
+            score.left = 3;
             settings.buildWall = true;
         } 
     }
