@@ -8,11 +8,13 @@ public class KeyEvents implements KeyListener{
     private final Settings settings;
     private final Bar bar;
     private final Ball ball;
+    private Score score;
     
-    public KeyEvents(Settings config, Bar ba, Ball bal){
+    public KeyEvents(Settings config, Bar ba, Ball bal, Score scor){
         settings = config;
         bar = ba;
         ball = bal;
+        score = scor;
     }
 
     @Override
@@ -25,27 +27,32 @@ public class KeyEvents implements KeyListener{
         switch(ke.getKeyCode()){
             
             case KeyEvent.VK_RIGHT:
-                
-                if(bar.x < settings.screenWidth - bar.width){
-                    bar.x += bar.moveValue;
-                    if(settings.preStart) ball.x += bar.moveValue;
+                if(bar.rect.x < settings.screenWidth - bar.rect.width){
+                    bar.rect.x += bar.moveValue;
+                    if(settings.preStart) ball.rect.x += bar.moveValue;
                 }
                 break;
                 
             case KeyEvent.VK_LEFT:
-                
-                 if(bar.x > 0){
-                    bar.x -= bar.moveValue;
-                    if (settings.preStart) ball.x -= bar.moveValue;   
+                 if(bar.rect.x > 0){
+                    bar.rect.x -= bar.moveValue;
+                    if (settings.preStart) ball.rect.x -= bar.moveValue;   
                 }
                 break;
                 
             case KeyEvent.VK_SPACE:
-                
                 if(settings.preStart){
                     settings.preStart = false;
                     settings.start = true;
+                }else if(settings.gameOver){
+                    score.value = 0;
+                    score.level = 1;
+                    score.chancesLeft = 3;
+                    settings.preStart = true;
+                    settings.buildWall = true;
+                    settings.gameOver = false;
                 }
+                break;
             
             default:
                 break;

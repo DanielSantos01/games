@@ -8,15 +8,16 @@ public class BreakOut {
         //game elements
         Settings settings = new Settings();
         Bar bar = new Bar(settings);
-        Ball ball = new Ball(settings, bar);
-        KeyEvents keyEvent = new KeyEvents(settings, bar, ball);
+        Score score = new Score();
+        Ball ball = new Ball(settings, bar, score);
+        KeyEvents keyEvent = new KeyEvents(settings, bar, ball, score);
         Screen screen = new Screen(settings, keyEvent);
         Graphics2D g = (Graphics2D) settings.canvas.getGraphics();
-        RunGame run = new RunGame(bar, settings, screen, ball);
+        RunGame breakOut = new RunGame(bar, settings, screen, ball, score);
         
         //running...
         while(true){
-            run.render();
+            breakOut.render();
             settings.clock(30);
         }
     }

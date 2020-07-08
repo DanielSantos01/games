@@ -3,85 +3,162 @@ package breakout;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-public class Ball {
+public final class Ball {
     Settings settings;
     
     //position
-    protected final int startx;
-    protected final int starty;
-    protected final int radius;
-    protected int moveValue;
-    protected int x;
-    protected int y;
+    private final int startx;
+    private final int starty;
+    private final int radius;
+    private int verticalValue;
+    private int horizontalValue;
+    private int center;
     
     //movement flags
     private boolean up;
     private boolean down;
+    private boolean left;
+    private boolean right;
+    private boolean allow;
     
-    private final Rectangle rect;
+    protected final Rectangle rect;
     private final Bar bar;
+    private final Score score;
     
-    public Ball(Settings set, Bar ba){
+    public Ball(Settings set, Bar ba, Score scor){
         settings = set;
         bar = ba;
+        score = scor;
         
         //position
         startx = 480;
-        starty = 496;
-        x = startx;
-        y = starty;
-        radius = 25;
-        moveValue = 6;
+        starty = 506;
+        radius = 20;
+        verticalValue = 8;
         
         //movement flags
-        up = false;
-        down = false;
+        resetFlags();
         
-        rect = new Rectangle(x, y, 2*radius, 2*radius);
+        //ball rect
+        rect = new Rectangle(startx, starty, 2*radius, 2*radius);
     }
     
-    public void draw(Graphics2D g){
-        rect.x = x;
-        rect.y = y;
-        g.fillArc(x, y, 2*radius, 2*radius, 0, 360);
-    }
-    
-    public void checkEdges(){
+    protected void execute(Graphics2D g){
+        draw(g);
         if(settings.start){
-            if(y > 0 && !(down)){
-                up = true;
-                down = false;
-            
-            }else{
-                up = false;
-                down = true;
-                if ((y+2*radius) >= settings.screenHeight) fail();
-                  
-            }
+            checkEdges();
+            move();
         }
     }
     
-    public void checkMove(){
+    private void draw(Graphics2D g){
+        center = rect.x + (rect.width/2);
+        g.fillArc(rect.x, rect.y, 2*radius, 2*radius, 0, 360);
+    }
+    
+    private void checkEdges(){
+        //movimento vertical
+        if(rect.y > 0 && !(down)){
+            goUp();
+        }else{
+            goDown();
+            if ((rect.y + 2*radius) >= settings.screenHeight) reset("fail");    
+        }
         
-        if(up) y -= moveValue;
+        //movimento horizontal
+        if(rect.x > 0 && !(right) && allow){
+            goLeft();
+        }else if(allow){
+            goRight();
+            if((rect.x + 2*radius) >= settings.screenWidth) goLeft();
+        }
+    }
+    
+    private void move(){
+        if(up) rect.y -= verticalValue;
         
-        if(down) y += moveValue;
+        else if(down) rect.y += verticalValue;
+        
+        if(right) rect.x += horizontalValue;
+        
+        else if(left) rect.x -= horizontalValue;
+    }
+    
+    protected void reset(String cause){
+        resetFlags();
+        rect.x = startx;
+        rect.y = starty;
+        bar.reset();
+        
+        switch(cause){
+            case "fail":
+                score.chancesLeft--;
+                if(score.chancesLeft == 0) {
+                    settings.gameOver = true;
+                    settings.preStart = false;
+                }
+                verticalValue = 8;
+                break;
+                
+            case "new level":
+                verticalValue += 1;
+                break;
+            
+            default:
+                break;
+        }
         
     }
     
-    public void checkCollisions(){
-        
-       if(rect.intersects(bar.rect) && settings.start) down = false;
-       
-    }
-    
-    public void fail(){
+    protected void resetFlags(){
         up = false;
         down = false;
-        x = startx;
-        y = starty;
-        bar.x = bar.startx;
+        right = false;
+        left = false;
+        allow = false;
         settings.preStart = true;
         settings.start = false;
+    }
+    
+    protected void changeDirection(){
+        if(down) goUp();
+        else if(up) goDown();
+    }
+    
+    protected void touchBar(int centerBar){
+      if(center > centerBar){
+          if(center < (centerBar+20)) horizontalValue = 1;
+          else if(center < (centerBar+65)) horizontalValue = 2;
+          else if(center < (centerBar+100)) horizontalValue = 3;
+          allow = true;
+          goRight();
+      }else if (center < centerBar){
+          if(center > (centerBar-20)) horizontalValue = 1;
+          else if(center > (centerBar-65)) horizontalValue = 2;
+          else if(center > (centerBar-100)) horizontalValue = 3;
+          allow = true;
+          goLeft();
+      }
+      goUp();
+    }
+    
+    private void goUp(){
+        up = true;
+        down = false;
+    }
+    
+    private void goDown(){
+        up = false;
+        down = true;
+    }
+    
+    private void goLeft(){
+        left = true;
+        right = false;
+    }
+    
+    private void goRight(){
+        left = false;
+        right = true;
     }
 }

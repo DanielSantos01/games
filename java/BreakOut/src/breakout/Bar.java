@@ -7,30 +7,31 @@ public class Bar {
     Settings settings;
     
     //position
-    protected final int width;
-    protected final int height;
     protected final int startx;
     protected final int starty;
-    protected int x;
     protected int moveValue;
     
     //rectangle
     protected Rectangle rect;
     
     public Bar(Settings set){
-        settings = set;
-        width = 200;
-        height = 30;
+        rect = new Rectangle();
         startx = 400;
         starty = 546;
-        x = startx;
-        moveValue = 5;
-        rect = new Rectangle(x, starty, width, height);
+        rect.x = startx;
+        rect.y = starty;
+        rect.width = 200;
+        rect.height = 30;
+        moveValue = 8;
     }
     
-    public void draw(Graphics2D g){
-        rect.x = x;
+    protected void draw(Graphics2D g){
         g.setColor(Color.white);
-        g.fillRect(x, starty, width, height);
+        g.fillRect(rect.x, rect.y, rect.width, rect.height);
     }
+    
+    protected void reset(){
+        rect.x = startx;
+    }
+    
 }
