@@ -2,6 +2,7 @@ package breakout;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class RunGame {
@@ -22,7 +23,7 @@ public class RunGame {
         score = scor;
     }
     
-    public void render(){
+    public void render() throws IOException{
         BufferStrategy bs = settings.canvas.getBufferStrategy();
         if(bs == null) {
             settings.canvas.createBufferStrategy(2);
@@ -36,7 +37,7 @@ public class RunGame {
         bs.show();
     }
     
-    private void updateScreen(){
+    private void updateScreen() throws IOException{
         screen.fillBackground(g);
         
         bar.draw(g);
@@ -47,15 +48,15 @@ public class RunGame {
         if(settings.start) checkCollisions();
         draWall();
         
-        checkNewLevel();
+        checkLevel();
     }
     
-    private void buildWall(){
+    private void buildWall() throws IOException{
         //row number
         for(int y = 0; y < score.level; y++){
             //elements per row
             for(int x = 0; x <=9; x++){
-                Element element = new Element();
+                Element element = new Element(settings);
                 element.rect.x = x*element.rect.width;
                 element.rect.y = 30 + y*element.rect.height;
                 wall.add(element);
@@ -95,11 +96,19 @@ public class RunGame {
         });
     }
     
-    private void checkNewLevel(){
+    private void checkLevel(){
         if(wall.isEmpty()){
             score.level++;
             ball.reset("new level");
             settings.buildWall = true;
         }
+        
+        if(settings.gameOver){
+            wall.clear();
+            score.value = 0;
+            score.level = 1;
+            score.chancesLeft = 3;
+            settings.buildWall = true;
+        } 
     }
 }

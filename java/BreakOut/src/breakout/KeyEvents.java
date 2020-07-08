@@ -8,7 +8,7 @@ public class KeyEvents implements KeyListener{
     private final Settings settings;
     private final Bar bar;
     private final Ball ball;
-    private Score score;
+    private final Score score;
     
     public KeyEvents(Settings config, Bar ba, Ball bal, Score scor){
         settings = config;
@@ -45,12 +45,8 @@ public class KeyEvents implements KeyListener{
                     settings.preStart = false;
                     settings.start = true;
                 }else if(settings.gameOver){
-                    score.value = 0;
-                    score.level = 1;
-                    score.chancesLeft = 3;
-                    settings.preStart = true;
-                    settings.buildWall = true;
                     settings.gameOver = false;
+                    settings.preStart = true;
                 }
                 break;
             

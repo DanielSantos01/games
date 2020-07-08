@@ -85,19 +85,19 @@ public final class Ball {
     }
     
     protected void reset(String cause){
-        resetFlags();
         rect.x = startx;
         rect.y = starty;
+        resetFlags();
         bar.reset();
         
         switch(cause){
             case "fail":
                 score.chancesLeft--;
                 if(score.chancesLeft == 0) {
-                    settings.gameOver = true;
                     settings.preStart = false;
+                    settings.gameOver = true;
+                    verticalValue = 8;
                 }
-                verticalValue = 8;
                 break;
                 
             case "new level":
@@ -127,14 +127,14 @@ public final class Ball {
     
     protected void touchBar(int centerBar){
       if(center > centerBar){
-          if(center < (centerBar+20)) horizontalValue = 1;
-          else if(center < (centerBar+65)) horizontalValue = 2;
+          if(center < (centerBar+40)) horizontalValue = 1;
+          else if(center < (centerBar+75)) horizontalValue = 2;
           else if(center < (centerBar+100)) horizontalValue = 3;
           allow = true;
           goRight();
       }else if (center < centerBar){
-          if(center > (centerBar-20)) horizontalValue = 1;
-          else if(center > (centerBar-65)) horizontalValue = 2;
+          if(center > (centerBar-40)) horizontalValue = 1;
+          else if(center > (centerBar-75)) horizontalValue = 2;
           else if(center > (centerBar-100)) horizontalValue = 3;
           allow = true;
           goLeft();
