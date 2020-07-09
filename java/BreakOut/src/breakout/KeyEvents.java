@@ -8,9 +8,9 @@ public class KeyEvents implements KeyListener{
     private final Settings settings;
     private final Bar bar;
     private final Ball ball;
-    private final Score score;
+    private final Status score;
     
-    public KeyEvents(Settings config, Bar ba, Ball bal, Score scor){
+    public KeyEvents(Settings config, Bar ba, Ball bal, Status scor){
         settings = config;
         bar = ba;
         ball = bal;
@@ -27,7 +27,7 @@ public class KeyEvents implements KeyListener{
         switch(ke.getKeyCode()){
             
             case KeyEvent.VK_RIGHT:
-                if(bar.rect.x < settings.screenWidth - bar.rect.width){
+                if(bar.rect.x < (settings.screenWidth - bar.rect.width)){
                     bar.rect.x += bar.moveValue;
                     if(settings.preStart) ball.rect.x += bar.moveValue;
                 }

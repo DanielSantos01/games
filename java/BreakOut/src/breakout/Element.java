@@ -17,7 +17,7 @@ public class Element {
         image = ImageIO.read(getClass().getResource("..//images//element.png"));
     }
     
-    public void draw(Graphics2D g){
+    protected void draw(Graphics2D g){
         g.drawImage(image, rect.x, rect.y, rect.width, rect.height, settings.canvas);
     }
 }

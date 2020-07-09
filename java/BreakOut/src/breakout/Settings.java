@@ -15,6 +15,8 @@ public class Settings {
         screenWidth = 1000;
         screenHeight = 600;
         canvas = new Canvas();
+        
+        //flags
         preStart = true;
         start = false;
         buildWall = true;

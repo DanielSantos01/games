@@ -8,7 +8,6 @@ public class Bar {
     
     //position
     protected final int startx;
-    protected final int starty;
     protected int moveValue;
     
     //rectangle
@@ -16,10 +15,9 @@ public class Bar {
     
     public Bar(Settings set){
         startx = 400;
-        starty = 546;
         moveValue = 20;
         settings = set;
-        rect = new Rectangle(startx, starty, 200, 30);
+        rect = new Rectangle(startx, 546, 200, 30);
     }
     
     protected void draw(Graphics2D g){

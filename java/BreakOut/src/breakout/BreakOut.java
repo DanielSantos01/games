@@ -7,12 +7,12 @@ public class BreakOut {
         //game elements
         Settings settings = new Settings();
         Bar bar = new Bar(settings);
-        Score score = new Score();
-        Ball ball = new Ball(settings, bar, score);
-        KeyEvents keyEvent = new KeyEvents(settings, bar, ball, score);
+        Status status = new Status();
+        Ball ball = new Ball(settings, bar, status);
+        KeyEvents keyEvent = new KeyEvents(settings, bar, ball, status);
         Screen screen = new Screen(settings, keyEvent);
-        Button btn = new Button(settings);
-        RunGame breakOut = new RunGame(bar, settings, screen, ball, score, btn);
+        Button button = new Button(settings);
+        RunGame breakOut = new RunGame(bar, settings, screen, ball, status, button);
         
         //running...
         while(true){

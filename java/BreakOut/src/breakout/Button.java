@@ -26,7 +26,7 @@ public class Button {
         g.setColor(Color.blue);
         g.fillRect(rect.x, rect.y, rect.width, rect.height);
         g.setColor(Color.white);
-        g.drawString(message, rect.x+37, rect.y+23);
+        g.drawString(message, rect.x+37, (int) rect.getCenterY());
     }
     
     private void gameOverButton(Graphics2D g){
@@ -34,6 +34,6 @@ public class Button {
         g.setColor(Color.blue);
         g.fillRect(rect.x, rect.y, rect.width, rect.height);
         g.setColor(Color.white);
-        g.drawString(message, rect.x+65, rect.y+23);
+        g.drawString(message, rect.x+65, (int) rect.getCenterY());
     }  
 }

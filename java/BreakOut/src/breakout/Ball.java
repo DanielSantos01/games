@@ -23,9 +23,9 @@ public final class Ball {
     
     protected final Rectangle rect;
     private final Bar bar;
-    private final Score score;
+    private final Status score;
     
-    public Ball(Settings set, Bar ba, Score scor){
+    public Ball(Settings set, Bar ba, Status scor){
         settings = set;
         bar = ba;
         score = scor;
@@ -87,8 +87,8 @@ public final class Ball {
         
         switch(cause){
             case "fail":
-                score.left--;
-                if(score.left == 0) {
+                score.chancesLeft--;
+                if(score.chancesLeft == 0) {
                     settings.preStart = false;
                     settings.gameOver = true;
                     verticalValue = 4;
