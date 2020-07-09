@@ -14,9 +14,9 @@ public class Pipe {
     private Image pipeUpImage;
     private Image pipeDownImage;
     private final Settings settings;
-    protected final int pipeUpHight[] = {250, 100, 200, 150, 200, 400, 350, 150, 30, 10};
-    protected final int pipeDownHeight[] = {240, 390, 290, 340, 290, 90, 140, 340, 460, 480};
-    protected int[] x = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    private final int pipeUpHight[] = {250, 100, 200, 150, 200, 350, 400, 150, 30, 20};
+    private final int pipeDownHeight[] = {230, 380, 280, 330, 280, 130, 80, 330, 450, 460};
+    private final int[] x = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     private int currentPipe = 0;
     private final Bird bird;
     private final Rectangle rect;
@@ -38,7 +38,7 @@ public class Pipe {
     
     private void configurePipes(){
         
-        for(int pipe = 0; pipe <= 9; pipe++) x[pipe] = 450 + 4*pipe*50;
+        for(int pipe = 0; pipe <= 9; pipe++) x[pipe] = 450 + 4*pipe*75;
         
         settings.configurePipes = false;
     }
@@ -46,14 +46,14 @@ public class Pipe {
     private void show(Graphics g){
         for(int pipe = 0; pipe <= 9; pipe++){
             showDownPipes(g, pipe);
-            checkCollision(rect);
+            checkCollision();
             
             showUpPipes(g, pipe);
-            checkCollision(rect);
+            checkCollision();
             
             updatePosition(pipe);
         }
-        checkPipeOut();
+        if(settings.start) checkPipeOut();
     }
     
     private void updatePosition(int pipe){
@@ -61,25 +61,25 @@ public class Pipe {
     }
     
     private void checkPipeOut(){
-        if(x[currentPipe] == -50){
-            x[currentPipe] = 1950;
+        if(x[currentPipe] <= -50){
+            x[currentPipe] = 2950;
             currentPipe++;
             if(currentPipe == 10) currentPipe = 0;
         }
     }
     
     private void showUpPipes(Graphics g, int pipe){
-        g.drawImage(pipeUpImage, x[pipe], 680-110 - pipeUpHight[pipe], pipeUpImage.getWidth(settings.canvas), pipeUpHight[pipe], settings.canvas);
         rect.x = x[pipe];
-        rect.y = 680-110 - pipeUpHight[pipe];
+        rect.y = 680 -110 - pipeUpHight[pipe];
         rect.height = pipeUpHight[pipe];
+        g.drawImage(pipeUpImage, x[pipe], rect.y, rect.width, rect.height, settings.canvas);
     }
     
     private void showDownPipes(Graphics g, int pipe){
-        g.drawImage(pipeDownImage, x[pipe], 0, pipeDownImage.getWidth(settings.canvas), pipeDownHeight[pipe], settings.canvas);
         rect.x = x[pipe];
         rect.y = 0;
         rect.height = pipeDownHeight[pipe];
+        g.drawImage(pipeDownImage, x[pipe], rect.y, rect.width, rect.height, settings.canvas);
     }
     
     private void configureImages() throws IOException{
@@ -90,7 +90,7 @@ public class Pipe {
         pipeDownImage = op.filter((BufferedImage)pipeUpImage, null);
     }
     
-    public void checkCollision(Rectangle rect){
-        if(bird.rect.intersects(rect)) bird.fall("pipe");
+    public void checkCollision(){
+        if(rect.intersects(bird.rect)) bird.fall("pipe");
     }
 }

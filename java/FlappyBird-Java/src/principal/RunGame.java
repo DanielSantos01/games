@@ -50,7 +50,7 @@ public class RunGame extends Thread{
         settings.clock(fps);
         background.drawBackground(g);
         pipe.draw(g);
-        if(settings.preStart || settings.gameOver) pauseScreen();
+        if((settings.preStart || settings.gameOver)) pauseScreen();
         bird.run(g);
         ground.display(g);
     }

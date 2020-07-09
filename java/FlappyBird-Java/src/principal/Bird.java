@@ -54,7 +54,7 @@ public class Bird {
         return (rect.y + rect.height) >= (680 - ground.groundImage.getHeight(settings.canvas));
     }
     
-    protected void centerBird(){
+    protected void center(){
         rect.y = centery;
     }
     
@@ -65,11 +65,13 @@ public class Bird {
                 settings.preStart = false;
                 settings.start = false;
                 settings.configurePipes = true;
-                settings.touchPipe = false;
                 break;
+                
             case "pipe":
-                settings.touchPipe = true;
                 settings.gameOver = true;
+                break;
+                
+            default:
                 break;
         }
     }

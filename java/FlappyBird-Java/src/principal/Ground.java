@@ -18,7 +18,7 @@ public class Ground {
     
     //--------------------------------------------------------------------------------------------------------------------
     public void display(Graphics g){
-        if((settings.preStart || settings.start) && !(settings.touchPipe)) updatePostion();
+        if((settings.preStart || settings.start) && !(settings.gameOver)) updatePostion();
         draw(g);
     }
     
