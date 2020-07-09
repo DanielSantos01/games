@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.IOException;
 import javax.swing.JFrame;
-import javax.swing.JTextArea;
 
 public final class Screen extends JFrame{
     Settings settings;
