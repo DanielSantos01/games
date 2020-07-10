@@ -53,6 +53,7 @@ public class RunGame {
         draWall();
         
         checkLevel();
+        checkHighscore();
         status.draw(g);
     }
     
@@ -116,5 +117,9 @@ public class RunGame {
             status.chancesLeft = 3;
             settings.buildWall = true;
         } 
+    }
+    
+    private void checkHighscore() throws IOException{
+        if(status.value > status.highscore) status.updateHighscore();
     }
 }
