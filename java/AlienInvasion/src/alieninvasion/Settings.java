@@ -5,6 +5,7 @@ import java.awt.Canvas;
 public class Settings {
     protected final int screenWidth;
     protected final int screenHeight;
+    protected boolean createFleet;
     protected Canvas canvas;
     
     public Settings(){
@@ -12,6 +13,7 @@ public class Settings {
         screenHeight = 700;
         canvas = new Canvas();
         canvas.setSize(screenWidth, screenHeight);
+        createFleet = true;
     }
     
     
