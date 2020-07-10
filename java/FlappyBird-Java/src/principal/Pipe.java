@@ -17,16 +17,19 @@ public class Pipe {
     private final int pipeUpHight[] = {250, 100, 200, 150, 200, 350, 400, 150, 30, 20};
     private final int pipeDownHeight[] = {230, 380, 280, 330, 280, 130, 80, 330, 450, 460};
     private final int[] x = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-    private int currentPipe = 0;
+    private int verifyOut = 0;
+    private int verifyPoint = 0;
     private final Bird bird;
     private final Rectangle rect;
+    private final Stats stats;
     
-    public Pipe(Settings set, Bird brd) throws IOException{
+    public Pipe(Settings set, Bird brd, Stats stt) throws IOException{
         rect = new Rectangle();
         settings = set;
         configureImages();
         rect.width = pipeUpImage.getWidth(settings.canvas);
         bird = brd;
+        stats = stt;
     }
     
     public void draw(Graphics g){
@@ -46,25 +49,36 @@ public class Pipe {
     private void show(Graphics g){
         for(int pipe = 0; pipe <= 9; pipe++){
             showDownPipes(g, pipe);
-            checkCollision();
+            //checkCollision();
             
             showUpPipes(g, pipe);
-            checkCollision();
+            //checkCollision();
             
             updatePosition(pipe);
         }
-        if(settings.start) checkPipeOut();
+        if(settings.start) {
+            checkPoint();
+            checkPipeOut();
+        }
     }
     
     private void updatePosition(int pipe){
         if(!settings.gameOver) x[pipe] -= 5;
     }
     
+    private void checkPoint(){
+        if(x[verifyPoint] < (settings.screenWidth/2)){
+            stats.score++;
+            verifyPoint++;
+            if(verifyPoint == 10) verifyPoint = 0;
+        }
+    }
+    
     private void checkPipeOut(){
-        if(x[currentPipe] <= -50){
-            x[currentPipe] = 2950;
-            currentPipe++;
-            if(currentPipe == 10) currentPipe = 0;
+        if(x[verifyOut] <= -50){
+            x[verifyOut] = 2950;
+            verifyOut++;
+            if(verifyOut == 10) verifyOut = 0;
         }
     }
     

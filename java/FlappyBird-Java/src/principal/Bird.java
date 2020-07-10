@@ -13,12 +13,14 @@ public class Bird {
     protected Rectangle rect;
     private final Settings settings;
     private final Ground ground;
+    private final Stats stats;
     
-    public Bird(Settings set, Ground gnd) throws IOException{
+    public Bird(Settings set, Ground gnd, Stats stt) throws IOException{
         settings = set;
         ground = gnd;
         rect = new Rectangle(190, 273, 36, 28);
         centery = 273;
+        stats = stt;
         birdImage[0] = ImageIO.read(getClass().getResource("..//assets//bluebird-upflap.png"));
         birdImage[1] = ImageIO.read(getClass().getResource("..//assets//bluebird-midflap.png"));
         birdImage[2] = ImageIO.read(getClass().getResource("..//assets//bluebird-downflap.png"));
@@ -74,5 +76,7 @@ public class Bird {
             default:
                 break;
         }
+        
+        stats.score = 0;
     }
 }

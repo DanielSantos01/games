@@ -10,11 +10,12 @@ public class RunGame extends Thread{
     private final Screen screen;
     private final WaitScreen waitScreen;
     private final Bird bird;
+    private final Stats stats;
     private Graphics g;
     private final Pipe pipe;
     private final int fps;
     
-    public RunGame(Settings set, Background bg, Ground gnd, Screen scr, WaitScreen ws, Bird brd, Pipe pp){
+    public RunGame(Settings set, Background bg, Ground gnd, Screen scr, WaitScreen ws, Bird brd, Pipe pp, Stats stt){
         settings = set;
         background = bg;
         ground = gnd;
@@ -23,6 +24,7 @@ public class RunGame extends Thread{
         bird = brd;
         pipe = pp;
         fps = 30;
+        stats = stt;
     }
    
     //--------------------------------------------------------------------------------------------------------------------
@@ -53,6 +55,7 @@ public class RunGame extends Thread{
         if((settings.preStart || settings.gameOver)) pauseScreen();
         bird.run(g);
         ground.display(g);
+        if(settings.start) stats.draw(g);
     }
     
     //--------------------------------------------------------------------------------------------------------------------
