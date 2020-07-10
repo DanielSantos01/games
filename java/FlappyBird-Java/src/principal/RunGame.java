@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 public class RunGame extends Thread{
+    private Graphics g;
     private final Settings settings;
     private final Background background;
     private final Ground ground;
@@ -11,7 +12,6 @@ public class RunGame extends Thread{
     private final WaitScreen waitScreen;
     private final Bird bird;
     private final Stats stats;
-    private Graphics g;
     private final Pipe pipe;
     private final int fps;
     
@@ -30,13 +30,11 @@ public class RunGame extends Thread{
     //--------------------------------------------------------------------------------------------------------------------
     @Override
     public void run(){
-        
-        while(true) render();
-        
+        while(true) render(); 
     }
     
     //--------------------------------------------------------------------------------------------------------------------
-    public void render(){
+    private void render(){
         BufferStrategy bs = settings.canvas.getBufferStrategy();
         if(bs == null) {
             settings.canvas.createBufferStrategy(2);
@@ -52,14 +50,10 @@ public class RunGame extends Thread{
         settings.clock(fps);
         background.drawBackground(g);
         pipe.draw(g);
-        if((settings.preStart || settings.gameOver)) pauseScreen();
+        if((settings.preStart || settings.gameOver)) waitScreen.draw(g);
         bird.run(g);
         ground.display(g);
         if(settings.start) stats.draw(g);
     }
     
-    //--------------------------------------------------------------------------------------------------------------------
-    private void pauseScreen(){
-        waitScreen.draw(g);
-    }
 }

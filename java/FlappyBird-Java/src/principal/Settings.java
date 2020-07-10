@@ -16,11 +16,6 @@ public class Settings {
     protected boolean preStart;
     protected boolean start;
     protected boolean gameOver;
-    protected final int pipeUpHeight[] = {100, 50, 30, 150, 300, 70, 180, 200, 120, 60};
-    protected boolean drawBackground;
-    protected boolean drawGame;
-    protected boolean drawBird;
-    protected boolean drawGround;
     protected boolean configurePipes;
     protected Canvas canvas;
     
@@ -39,8 +34,6 @@ public class Settings {
         configurePipes = true;
         start = false;
         gameOver = false;
-        drawBackground = true;
-        drawGame = false;
         
         //canvas
         canvas = new Canvas();

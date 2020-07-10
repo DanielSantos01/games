@@ -13,12 +13,11 @@ import javax.imageio.ImageIO;
 public class Pipe {
     private Image pipeUpImage;
     private Image pipeDownImage;
+    private int verifyOut = 0, verifyPoint = 0;
     private final Settings settings;
+    private final int[] x = new int[10];
     private final int pipeUpHight[] = {250, 100, 200, 150, 200, 350, 400, 150, 30, 20};
     private final int pipeDownHeight[] = {230, 380, 280, 330, 280, 130, 80, 330, 450, 460};
-    private final int[] x = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-    private int verifyOut = 0;
-    private int verifyPoint = 0;
     private final Bird bird;
     private final Rectangle rect;
     private final Stats stats;
@@ -33,10 +32,8 @@ public class Pipe {
     }
     
     public void draw(Graphics g){
-        
         if(settings.start || settings.gameOver) show(g);
         else if(settings.preStart && settings.configurePipes) configurePipes();
-        
     }
     
     private void configurePipes(){
@@ -49,10 +46,10 @@ public class Pipe {
     private void show(Graphics g){
         for(int pipe = 0; pipe <= 9; pipe++){
             showDownPipes(g, pipe);
-            //checkCollision();
+            checkCollision();
             
             showUpPipes(g, pipe);
-            //checkCollision();
+            checkCollision();
             
             updatePosition(pipe);
         }
@@ -69,16 +66,14 @@ public class Pipe {
     private void checkPoint(){
         if(x[verifyPoint] < (settings.screenWidth/2)){
             stats.score++;
-            verifyPoint++;
-            if(verifyPoint == 10) verifyPoint = 0;
+            if(verifyPoint++ == 9) verifyPoint = 0;
         }
     }
     
     private void checkPipeOut(){
         if(x[verifyOut] <= -50){
             x[verifyOut] = 2950;
-            verifyOut++;
-            if(verifyOut == 10) verifyOut = 0;
+            if(verifyOut++ == 9) verifyOut = 0;
         }
     }
     

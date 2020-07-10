@@ -9,15 +9,14 @@ public class WaitScreen {
     private final Image preStart;
     private final Image gameOver;
     private final Settings settings;
-    private final int x;
-    private final int y;
+    private final int x, y;
     
     public WaitScreen(Settings set) throws IOException{
         settings = set;
-        x = 115;
-        y = 108;
         preStart = ImageIO.read(getClass().getResource("..//assets//message.png"));
         gameOver = ImageIO.read(getClass().getResource("..//assets//gameover.png"));
+        x = 115;
+        y = 108;
     }
     
     //--------------------------------------------------------------------------------------------------------------------
