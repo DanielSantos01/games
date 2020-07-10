@@ -16,7 +16,7 @@ public class Status {
     private String chancesMessage;
     private String scoreMessage;
     private final BufferedReader reader;
-    private final BufferedWriter writer;
+    private BufferedWriter writer;
     
     public Status() throws FileNotFoundException, IOException{
         level = 1;
@@ -27,7 +27,6 @@ public class Status {
         reader = new BufferedReader(new FileReader("/home/daniel/Documentos/Programming/Python/Repositórios/Games/java/BreakOut/src/score/highscore.txt"));
         highscore = Integer.parseInt(reader.readLine());
         reader.close();
-        writer = new BufferedWriter(new FileWriter("/home/daniel/Documentos/Programming/Python/Repositórios/Games/java/BreakOut/src/score/highscore.txt"));
     }
     
     protected void draw(Graphics2D g){
@@ -39,7 +38,8 @@ public class Status {
     
     protected void updateHighscore() throws IOException{
         highscore = value;
-        writer.append(Integer.toString(highscore));
-        writer.flush();
+        writer = new BufferedWriter(new FileWriter("/home/daniel/Documentos/Programming/Python/Repositórios/Games/java/BreakOut/src/score/highscore.txt"));
+        writer.write(Integer.toString(highscore));
+        writer.close();
     }
 }
