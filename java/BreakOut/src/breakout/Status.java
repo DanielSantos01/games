@@ -15,6 +15,7 @@ public class Status {
     protected int highscore;
     private String chancesMessage;
     private String scoreMessage;
+    private final String path;
     private final BufferedReader reader;
     private BufferedWriter writer;
     
@@ -22,9 +23,8 @@ public class Status {
         level = 1;
         value = 0;
         chancesLeft = 3;
-        chancesMessage = chancesLeft + " Chances left";
-        scoreMessage = "Level: " + level + " - Score: " + value;
-        reader = new BufferedReader(new FileReader("/home/daniel/Documentos/Programming/Python/Repositórios/Games/java/BreakOut/src/score/highscore.txt"));
+        path = "/home/daniel/Documentos/Programming/Python/Repositórios/Games/java/BreakOut/src/score/highscore.txt";
+        reader = new BufferedReader(new FileReader(path));
         highscore = Integer.parseInt(reader.readLine());
         reader.close();
     }
@@ -38,7 +38,7 @@ public class Status {
     
     protected void updateHighscore() throws IOException{
         highscore = value;
-        writer = new BufferedWriter(new FileWriter("/home/daniel/Documentos/Programming/Python/Repositórios/Games/java/BreakOut/src/score/highscore.txt"));
+        writer = new BufferedWriter(new FileWriter(path));
         writer.write(Integer.toString(highscore));
         writer.close();
     }
