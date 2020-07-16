@@ -6,6 +6,8 @@ public class Settings {
     protected final int screenWidth;
     protected final int screenHeight;
     protected boolean createFleet;
+    protected boolean shoot;
+    protected boolean onScreen;
     protected Canvas canvas;
     
     public Settings(){
@@ -14,6 +16,8 @@ public class Settings {
         canvas = new Canvas();
         canvas.setSize(screenWidth, screenHeight);
         createFleet = true;
+        shoot = false;
+        onScreen = false;
     }
     
     

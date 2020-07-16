@@ -12,12 +12,15 @@ public class RunGame {
     private Graphics2D g;
     private Alien alien;
     private final ArrayList<Alien> fleet;
+    private final ArrayList<Bullet> bullets;
+    private Bullet bullet;
     
     public RunGame(Screen scr, Settings set, Ship shp){
         screen = scr;
         settings = set;
         ship = shp;
         fleet = new ArrayList();
+        bullets = new ArrayList();
     }
     
     protected void start() throws IOException{
@@ -46,6 +49,13 @@ public class RunGame {
         if(settings.createFleet) createFleet();
         drawFleet();
         checkFleetBorder();
+        
+        if(settings.shoot && bullets.size() <= 2){
+           shooting();
+           settings.shoot = false;
+        }
+        
+        updateBullets();
     }
     
     private void createFleet() throws IOException{
@@ -78,5 +88,26 @@ public class RunGame {
             al.changeDirection();
             al.goDown();
         });
+    }
+    
+    private void shooting(){
+        bullet = new Bullet(ship, settings);
+        bullets.add(bullet);
+    }
+    
+    private void updateBullets(){
+        int index = 0;
+        boolean out = false;
+        
+        for(Bullet bull : bullets){
+            bull.shoot(g);
+            if(!(bull.onScreen)){
+                index = bullets.indexOf(bull);
+                out = true;
+            }
+        }
+        
+        if(out) bullets.remove(index);
+        
     }
 }

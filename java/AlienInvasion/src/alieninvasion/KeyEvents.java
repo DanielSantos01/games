@@ -25,10 +25,21 @@ public class KeyEvents implements KeyListener{
                 
             case KeyEvent.VK_RIGHT:
                 if((ship.rect.x + ship.rect.width) < settings.screenWidth) ship.rect.x += 5;
+                break;
+                
+            case KeyEvent.VK_SPACE:
+                settings.shoot = true;
+                break;
         }
     }
    
     @Override
-    public void keyReleased(java.awt.event.KeyEvent ke) {}
+    public void keyReleased(java.awt.event.KeyEvent ke) {
+        /*switch(ke.getKeyCode()){
+            case KeyEvent.VK_SPACE:
+                    settings.shoot = false;
+                    break;
+        }*/
+    }
     
 }
