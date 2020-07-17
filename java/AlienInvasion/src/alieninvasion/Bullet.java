@@ -12,7 +12,7 @@ public class Bullet {
     
     public Bullet(Ship shp, Settings stt){
         ship = shp;
-        rect = new Rectangle(ship.rect.x + (ship.rect.width/2), ship.rect.y-20, 3, 20);
+        rect = new Rectangle(ship.rect.x + (ship.rect.width/2) - 2, ship.rect.y-20, 3, 20);
         settings = stt;
         onScreen = true;
     }
