@@ -126,6 +126,7 @@ public class RunGame {
                     alienIndex = fleet.indexOf(ali);
                     bulletIndex = bullets.indexOf(bll);
                     out = true;
+                    break;
                 }
             }
         }

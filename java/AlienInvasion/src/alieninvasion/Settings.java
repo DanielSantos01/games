@@ -8,6 +8,9 @@ public class Settings {
     protected boolean createFleet;
     protected boolean shoot;
     protected boolean onScreen;
+    protected boolean preStart;
+    protected boolean start;
+    protected boolean gameOver;
     protected Canvas canvas;
     
     public Settings(){
@@ -18,6 +21,9 @@ public class Settings {
         createFleet = true;
         shoot = false;
         onScreen = false;
+        preStart = true;
+        start = false;
+        gameOver = false;
     }
     
     

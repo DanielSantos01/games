@@ -28,7 +28,17 @@ public class KeyEvents implements KeyListener{
                 break;
                 
             case KeyEvent.VK_SPACE:
-                settings.shoot = true;
+                if(settings.preStart){
+                    settings.preStart = false;
+                    settings.start = true;
+                    settings.gameOver = false;
+                    
+                }else if(settings.start){
+                    settings.shoot = true;
+                    
+                }else{
+                    settings.preStart = true;
+                }
                 break;
         }
     }

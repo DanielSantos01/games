@@ -25,8 +25,10 @@ public class Alien {
     
     protected void execute(Graphics2D g){
         draw(g);
-        updatePosition();
-        checkEdges();
+        if(settings.start){
+            updatePosition();
+            checkEdges();
+        }
     }
     
     private void draw(Graphics2D g){
