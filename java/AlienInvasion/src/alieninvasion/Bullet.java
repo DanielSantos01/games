@@ -6,8 +6,8 @@ import java.awt.Rectangle;
 
 public class Bullet {
     protected Rectangle rect;
-    private Ship ship;
-    private Settings settings;
+    private final Ship ship;
+    private final Settings settings;
     protected boolean onScreen;
     
     public Bullet(Ship shp, Settings stt){
@@ -31,7 +31,7 @@ public class Bullet {
     }
     
     private void update(){
-        rect.y -= 20;
+        rect.y -= 40;
     }
     
     private void checkPosition(){
