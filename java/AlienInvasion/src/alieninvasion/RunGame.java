@@ -8,12 +8,15 @@ import java.util.ArrayList;
 public class RunGame {
     private final Screen screen;
     private final Settings settings;
+    private final ArrayList<Alien> fleet;
+    private final ArrayList<Bullet> bullets;
     private final Ship ship;
     private Graphics2D g;
     private Alien alien;
-    private final ArrayList<Alien> fleet;
-    private final ArrayList<Bullet> bullets;
     private Bullet bullet;
+    private boolean out;
+    private int alienIndex;
+    private int bulletIndex;
     
     public RunGame(Screen scr, Settings set, Ship shp){
         screen = scr;
@@ -21,6 +24,9 @@ public class RunGame {
         ship = shp;
         fleet = new ArrayList();
         bullets = new ArrayList();
+        out = false;
+        alienIndex = 0;
+        bulletIndex = 0;
     }
     
     protected void start() throws IOException{
@@ -51,7 +57,7 @@ public class RunGame {
         checkFleetBorder();
         
         if(settings.shoot && bullets.size() <= 2){
-           shooting();
+           newShoot();
            settings.shoot = false;
         }
         
@@ -92,32 +98,28 @@ public class RunGame {
         });
     }
     
-    private void shooting(){
+    private void newShoot(){
         bullet = new Bullet(ship, settings);
         bullets.add(bullet);
     }
     
     private void updateBullets(){
-        int index = 0;
-        boolean out = false;
-        
-        for(Bullet bullet : bullets){
-            bullet.shoot(g);
-            if(!(bullet.onScreen)){
-                index = bullets.indexOf(bullet);
+        for(Bullet bll : bullets){
+            bll.shoot(g);
+            if(!(bll.onScreen)){
+                bulletIndex = bullets.indexOf(bll);
                 out = true;
             }
         }
         
-        if(out) bullets.remove(index);
+        if(out){
+            removeBullet(bulletIndex);
+            resetState();
+        }
         
     }
     
     private void checkBulletAlien(){
-        int alienIndex = 0;
-        int bulletIndex = 0;
-        boolean out = false;
-        
         for(Bullet bll : bullets){
             for(Alien ali : fleet){
                 if(bll.rect.intersects(ali.rect)){
@@ -129,9 +131,23 @@ public class RunGame {
         }
         
         if(out){
-            fleet.remove(alienIndex);
-            bullets.remove(bulletIndex);
+            removeAlien(alienIndex);
+            removeBullet(bulletIndex);
+            resetState();
         }
-        
+    }
+    
+    private void removeBullet(int index){
+        bullets.remove(index);
+    }
+    
+    private void removeAlien(int index){
+        fleet.remove(index);
+    }
+    
+    private void resetState(){
+        alienIndex = 0;
+        bulletIndex = 0;
+        out = false;
     }
 }
