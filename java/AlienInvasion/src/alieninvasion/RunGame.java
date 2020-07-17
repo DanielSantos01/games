@@ -56,6 +56,8 @@ public class RunGame {
         }
         
         updateBullets();
+        
+        if(!(bullets.isEmpty())) checkBulletAlien();
     }
     
     private void createFleet() throws IOException{
@@ -99,15 +101,37 @@ public class RunGame {
         int index = 0;
         boolean out = false;
         
-        for(Bullet bull : bullets){
-            bull.shoot(g);
-            if(!(bull.onScreen)){
-                index = bullets.indexOf(bull);
+        for(Bullet bullet : bullets){
+            bullet.shoot(g);
+            if(!(bullet.onScreen)){
+                index = bullets.indexOf(bullet);
                 out = true;
             }
         }
         
         if(out) bullets.remove(index);
+        
+    }
+    
+    private void checkBulletAlien(){
+        int alienIndex = 0;
+        int bulletIndex = 0;
+        boolean out = false;
+        
+        for(Bullet bll : bullets){
+            for(Alien ali : fleet){
+                if(bll.rect.intersects(ali.rect)){
+                    alienIndex = fleet.indexOf(ali);
+                    bulletIndex = bullets.indexOf(bll);
+                    out = true;
+                }
+            }
+        }
+        
+        if(out){
+            fleet.remove(alienIndex);
+            bullets.remove(bulletIndex);
+        }
         
     }
 }
