@@ -17,8 +17,13 @@ public class Button {
     }
     
     protected void draw(Graphics2D g){
-        if(settings.preStart) startButton(g);
-        else gameOverButton(g);
+        if(settings.preStart){
+            startButton(g);
+        } else if(settings.gameOver){
+            gameOverButton(g);
+        }else{
+            beatButton(g);
+        }
     }
     
     private void startButton(Graphics2D g){
@@ -36,4 +41,12 @@ public class Button {
         g.setColor(Color.white);
         g.drawString(message, rect.x+65, (int) rect.getCenterY());
     }  
+    
+    private void beatButton(Graphics2D g){
+        message = "Fail";
+        g.setColor(Color.green);
+        g.fillRect(rect.x, rect.y, rect.width, rect.height);
+        g.setColor(Color.white);
+        g.drawString(message, rect.x+90, (int) rect.getCenterY());
+    }
 }

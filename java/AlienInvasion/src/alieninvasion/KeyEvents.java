@@ -20,11 +20,15 @@ public class KeyEvents implements KeyListener{
     public void keyPressed(java.awt.event.KeyEvent ke) {
         switch(ke.getKeyCode()){
             case KeyEvent.VK_LEFT:
-                if(ship.rect.x > 0) ship.rect.x -= 10;
+                if((ship.rect.x > 0)  && !(settings.beat)){
+                    ship.rect.x -= 10;
+                }
                 break;
                 
             case KeyEvent.VK_RIGHT:
-                if((ship.rect.x + ship.rect.width) < settings.screenWidth) ship.rect.x += 10;
+                if(((ship.rect.x + ship.rect.width) < settings.screenWidth) && !(settings.beat)){
+                    ship.rect.x += 10;
+                }
                 break;
                 
             case KeyEvent.VK_SPACE:
@@ -39,6 +43,7 @@ public class KeyEvents implements KeyListener{
                 }else{
                     settings.preStart = true;
                     settings.createFleet = true;
+                    settings.beat = false;
                 }
                 break;
         }

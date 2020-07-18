@@ -75,7 +75,7 @@ public class RunGame {
             checkLevel();
         }
         
-        if(settings.preStart || settings.gameOver) button.draw(g);
+        if(settings.preStart || settings.gameOver || settings.beat) button.draw(g);
         
     }
     
@@ -83,6 +83,7 @@ public class RunGame {
     
     private void createFleet() throws IOException{
         fleet.clear();
+        ship.center();
         for(int y = 0; y < status.level; y++){
             for(int x = 0; x <= 7; x++){
                 alien = new Alien(settings);
@@ -182,13 +183,13 @@ public class RunGame {
         status.chancesLeft--;
         settings.shoot = false;
         settings.start = false;
-        settings.gameOver = true;
+        settings.beat = true;
         if(status.chancesLeft == 0){
             status.level = 1;
             status.value = 0;
             status.chancesLeft = 3;
+            settings.gameOver = true;
         }
-        ship.center();
     }
     
     private void checkLevel(){
