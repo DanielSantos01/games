@@ -59,7 +59,6 @@ public class RunGame {
         
         if(settings.createFleet) createFleet();
         drawFleet();
-        checkFleetBorder();
         
         if(settings.shoot && bullets.size() <= 2){
            newShoot();
@@ -73,6 +72,7 @@ public class RunGame {
         if(settings.start) {
             checkAlienShip();
             checkLevel();
+            checkFleetBorders();
         }
         
         if(settings.preStart || settings.gameOver || settings.beat) button.draw(g);
@@ -101,8 +101,18 @@ public class RunGame {
         });
     }
     
-    private void checkFleetBorder(){
-        if(fleet.get(0).touch || fleet.get(fleet.size() -1).touch) changeFleet();
+    private void checkFleetBorders(){
+        boolean fail = false;
+        for(Alien all : fleet){
+            if((all.rect.y + all.rect.height + 30) >= settings.screenHeight){
+                restart();
+                fail = true;
+                break;
+            }
+        }
+        if((fleet.get(0).touch || fleet.get(fleet.size() -1).touch) && !(fail)){
+            changeFleet();
+        }
     }
     
     private void changeFleet(){
@@ -172,6 +182,7 @@ public class RunGame {
         for(Alien all : fleet){
             if(all.rect.intersects(ship.rect)){
                 fail = true;
+                break;
             }
         }
         

@@ -60,7 +60,7 @@ public class Alien {
     }
     
     protected void goDown(){
-        rect.y += 50;
+        rect.y += 10;
         touch = false;
     }
     
