@@ -97,12 +97,7 @@ public class RunGame {
     }
     
     private void checkFleetBorder(){
-        for(Alien al : fleet){
-            if(al.touch){
-                changeFleet();
-                break;
-            }
-        }
+        if(fleet.get(0).touch || fleet.get(fleet.size() -1).touch) changeFleet();
     }
     
     private void changeFleet(){
@@ -140,6 +135,7 @@ public class RunGame {
                     alienIndex = fleet.indexOf(ali);
                     bulletIndex = bullets.indexOf(bll);
                     out = true;
+                    status.value += status.level*10;
                     break;
                 }
             }
@@ -167,26 +163,31 @@ public class RunGame {
     }
     
     private void checkAlienShip(){
-        boolean end = false;
+        boolean fail = false;
         for(Alien all : fleet){
             if(all.rect.intersects(ship.rect)){
-                end = true;
+                fail = true;
             }
         }
         
-        if(end) gameOver();
+        if(fail) restart();
     }
     
     
-    private void gameOver(){
+    private void restart(){
+        status.chancesLeft--;
         settings.shoot = false;
         settings.start = false;
         settings.gameOver = true;
-        status.level = 1;
+        if(status.chancesLeft == 0){
+            status.level = 1;
+            status.value = 0;
+        }
     }
     
     private void checkLevel(){
         if(fleet.isEmpty()){
+            bullets.clear();
             settings.createFleet = true;
             settings.start = false;
             settings.preStart = true;

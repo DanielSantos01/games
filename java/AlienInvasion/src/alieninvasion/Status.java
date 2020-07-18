@@ -30,12 +30,13 @@ public class Status {
         reader.close();
     }
     
-    protected void draw(Graphics2D g){
+    protected void draw(Graphics2D g) throws IOException{
         g.setColor(Color.black);
         chancesMessage = chancesLeft + " Chances left";
         g.drawString(chancesMessage, 10, 20);
         scoreMessage = "Level: " + level + " - Score: " + value + " - Highscore: " + highscore;
         g.drawString(scoreMessage, 750, 20);
+        if(value > highscore) updateHighscore();
     }
     
     protected void updateHighscore() throws IOException{
