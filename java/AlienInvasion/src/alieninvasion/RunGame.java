@@ -12,6 +12,7 @@ public class RunGame {
     private final ArrayList<Bullet> bullets;
     private final Ship ship;
     private final Status status;
+    private final Button button;
     private Graphics2D g;
     private Alien alien;
     private Bullet bullet;
@@ -26,6 +27,7 @@ public class RunGame {
         fleet = new ArrayList();
         bullets = new ArrayList();
         status = new Status();
+        button = new Button(settings);
         out = false;
         alienIndex = 0;
         bulletIndex = 0;
@@ -72,7 +74,9 @@ public class RunGame {
             checkAlienShip();
             checkLevel();
         }
-            
+        
+        if(settings.preStart || settings.gameOver) button.draw(g);
+        
     }
     
     //-------------------------------------------------------------------------------------------------------------
@@ -178,10 +182,13 @@ public class RunGame {
         status.chancesLeft--;
         settings.shoot = false;
         settings.start = false;
-        settings.gameOver = true;
         if(status.chancesLeft == 0){
             status.level = 1;
             status.value = 0;
+            settings.gameOver = true;
+            settings.preStart = false;
+        }else{
+            settings.preStart = true;
         }
     }
     
