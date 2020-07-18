@@ -7,7 +7,6 @@ public class Settings {
     protected final int screenHeight;
     protected boolean createFleet;
     protected boolean shoot;
-    protected boolean onScreen;
     protected boolean preStart;
     protected boolean start;
     protected boolean gameOver;
@@ -20,7 +19,6 @@ public class Settings {
         canvas.setSize(screenWidth, screenHeight);
         createFleet = true;
         shoot = false;
-        onScreen = false;
         preStart = true;
         start = false;
         gameOver = false;

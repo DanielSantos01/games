@@ -64,9 +64,15 @@ public class RunGame {
         updateBullets();
         
         if(!(bullets.isEmpty())) checkBulletAlien();
+        
+        if(settings.start) checkAlienShip();
+            
     }
     
+    //-------------------------------------------------------------------------------------------------------------
+    
     private void createFleet() throws IOException{
+        fleet.clear();
         for(int x = 0; x <= 7; x++){
             alien = new Alien(settings);
             alien.rect.x = 30 + x*2*alien.rect.width;
@@ -150,5 +156,23 @@ public class RunGame {
         alienIndex = 0;
         bulletIndex = 0;
         out = false;
+    }
+    
+    private void checkAlienShip(){
+        boolean end = false;
+        for(Alien all : fleet){
+            if(all.rect.intersects(ship.rect)){
+                end = true;
+            }
+        }
+        
+        if(end) gameOver();
+    }
+    
+    
+    private void gameOver(){
+        settings.shoot = false;
+        settings.start = false;
+        settings.gameOver = true;
     }
 }
