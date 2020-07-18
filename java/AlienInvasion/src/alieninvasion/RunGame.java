@@ -11,6 +11,7 @@ public class RunGame {
     private final ArrayList<Alien> fleet;
     private final ArrayList<Bullet> bullets;
     private final Ship ship;
+    private final Status status;
     private Graphics2D g;
     private Alien alien;
     private Bullet bullet;
@@ -18,12 +19,13 @@ public class RunGame {
     private int alienIndex;
     private int bulletIndex;
     
-    public RunGame(Screen scr, Settings set, Ship shp){
+    public RunGame(Screen scr, Settings set, Ship shp) throws IOException{
         screen = scr;
         settings = set;
         ship = shp;
         fleet = new ArrayList();
         bullets = new ArrayList();
+        status = new Status();
         out = false;
         alienIndex = 0;
         bulletIndex = 0;
@@ -50,6 +52,7 @@ public class RunGame {
     private void updateScreen() throws IOException{
         settings.clock(30);
         screen.fill(g);
+        status.draw(g);
         ship.run(g);
         
         if(settings.createFleet) createFleet();
@@ -65,7 +68,10 @@ public class RunGame {
         
         if(!(bullets.isEmpty())) checkBulletAlien();
         
-        if(settings.start) checkAlienShip();
+        if(settings.start) {
+            checkAlienShip();
+            checkLevel();
+        }
             
     }
     
@@ -73,11 +79,13 @@ public class RunGame {
     
     private void createFleet() throws IOException{
         fleet.clear();
-        for(int x = 0; x <= 7; x++){
-            alien = new Alien(settings);
-            alien.rect.x = 30 + x*2*alien.rect.width;
-            alien.rect.y = 30;
-            fleet.add(alien);
+        for(int y = 0; y < status.level; y++){
+            for(int x = 0; x <= 7; x++){
+                alien = new Alien(settings);
+                alien.rect.x = 30 + x*2*alien.rect.width;
+                alien.rect.y = 30 + y*alien.rect.height;
+                fleet.add(alien);
+            }
         }
         settings.createFleet = false;
     }
@@ -174,5 +182,15 @@ public class RunGame {
         settings.shoot = false;
         settings.start = false;
         settings.gameOver = true;
+        status.level = 1;
+    }
+    
+    private void checkLevel(){
+        if(fleet.isEmpty()){
+            settings.createFleet = true;
+            settings.start = false;
+            settings.preStart = true;
+            status.level++;
+        }
     }
 }
