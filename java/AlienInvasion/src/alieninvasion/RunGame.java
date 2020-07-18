@@ -182,14 +182,13 @@ public class RunGame {
         status.chancesLeft--;
         settings.shoot = false;
         settings.start = false;
+        settings.gameOver = true;
         if(status.chancesLeft == 0){
             status.level = 1;
             status.value = 0;
-            settings.gameOver = true;
-            settings.preStart = false;
-        }else{
-            settings.preStart = true;
+            status.chancesLeft = 3;
         }
+        ship.center();
     }
     
     private void checkLevel(){

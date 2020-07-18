@@ -27,4 +27,8 @@ public class Ship {
     private void draw(Graphics2D g){
         g.drawImage(image, rect.x, rect.y, rect.width, rect.height, settings.canvas);
     }
+    
+    protected void center(){
+        rect.x = initialx;
+    }
 }

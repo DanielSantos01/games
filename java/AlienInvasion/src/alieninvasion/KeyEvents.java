@@ -39,7 +39,6 @@ public class KeyEvents implements KeyListener{
                 }else{
                     settings.preStart = true;
                     settings.createFleet = true;
-                    settings.newChances = true;
                 }
                 break;
         }
